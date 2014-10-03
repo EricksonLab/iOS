@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E973CF4219DEFE6800AF166C /* ELCameraMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = E973CF4119DEFE6800AF166C /* ELCameraMonitor.m */; };
 		E976502919DDB21F00BBB152 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E976502819DDB21F00BBB152 /* main.m */; };
 		E976502C19DDB21F00BBB152 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E976502B19DDB21F00BBB152 /* AppDelegate.m */; };
 		E976502F19DDB21F00BBB152 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E976502E19DDB21F00BBB152 /* ViewController.m */; };
@@ -24,23 +25,11 @@
 			remoteGlobalIDString = E976502219DDB21F00BBB152;
 			remoteInfo = nutriPhoneTestPlatform;
 		};
-		E976507419DDB54700BBB152 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E976506F19DDB54600BBB152 /* nutriPhoneLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E976505619DDB54600BBB152;
-			remoteInfo = nutriPhoneLib;
-		};
-		E976507619DDB54700BBB152 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E976506F19DDB54600BBB152 /* nutriPhoneLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E976506119DDB54600BBB152;
-			remoteInfo = nutriPhoneLibTests;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E973CF4019DEFE6800AF166C /* ELCameraMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCameraMonitor.h; sourceTree = "<group>"; };
+		E973CF4119DEFE6800AF166C /* ELCameraMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCameraMonitor.m; sourceTree = "<group>"; };
 		E976502319DDB21F00BBB152 /* nutriPhoneTestPlatform.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nutriPhoneTestPlatform.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E976502719DDB21F00BBB152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E976502819DDB21F00BBB152 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -54,7 +43,6 @@
 		E976503C19DDB21F00BBB152 /* nutriPhoneTestPlatformTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nutriPhoneTestPlatformTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E976504119DDB21F00BBB152 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E976504219DDB21F00BBB152 /* nutriPhoneTestPlatformTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = nutriPhoneTestPlatformTests.m; sourceTree = "<group>"; };
-		E976506F19DDB54600BBB152 /* nutriPhoneLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = nutriPhoneLib.xcodeproj; path = nutriPhoneLib/nutriPhoneLib.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,10 +63,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E973CF3F19DEFE3100AF166C /* nutriPhoneLibs */ = {
+			isa = PBXGroup;
+			children = (
+				E973CF4019DEFE6800AF166C /* ELCameraMonitor.h */,
+				E973CF4119DEFE6800AF166C /* ELCameraMonitor.m */,
+			);
+			name = nutriPhoneLibs;
+			sourceTree = "<group>";
+		};
 		E976501A19DDB21F00BBB152 = {
 			isa = PBXGroup;
 			children = (
-				E976506F19DDB54600BBB152 /* nutriPhoneLib.xcodeproj */,
 				E976502519DDB21F00BBB152 /* nutriPhoneTestPlatform */,
 				E976503F19DDB21F00BBB152 /* nutriPhoneTestPlatformTests */,
 				E976502419DDB21F00BBB152 /* Products */,
@@ -97,6 +93,7 @@
 		E976502519DDB21F00BBB152 /* nutriPhoneTestPlatform */ = {
 			isa = PBXGroup;
 			children = (
+				E973CF3F19DEFE3100AF166C /* nutriPhoneLibs */,
 				E976502A19DDB21F00BBB152 /* AppDelegate.h */,
 				E976502B19DDB21F00BBB152 /* AppDelegate.m */,
 				E976502D19DDB21F00BBB152 /* ViewController.h */,
@@ -133,15 +130,6 @@
 				E976504119DDB21F00BBB152 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E976507019DDB54600BBB152 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E976507519DDB54700BBB152 /* nutriPhoneLib.framework */,
-				E976507719DDB54700BBB152 /* nutriPhoneLibTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,12 +199,6 @@
 			mainGroup = E976501A19DDB21F00BBB152;
 			productRefGroup = E976502419DDB21F00BBB152 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = E976507019DDB54600BBB152 /* Products */;
-					ProjectRef = E976506F19DDB54600BBB152 /* nutriPhoneLib.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				E976502219DDB21F00BBB152 /* nutriPhoneTestPlatform */,
@@ -224,23 +206,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		E976507519DDB54700BBB152 /* nutriPhoneLib.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = nutriPhoneLib.framework;
-			remoteRef = E976507419DDB54700BBB152 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E976507719DDB54700BBB152 /* nutriPhoneLibTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = nutriPhoneLibTests.xctest;
-			remoteRef = E976507619DDB54700BBB152 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E976502119DDB21F00BBB152 /* Resources */ = {
@@ -269,6 +234,7 @@
 			files = (
 				E976502F19DDB21F00BBB152 /* ViewController.m in Sources */,
 				E976502C19DDB21F00BBB152 /* AppDelegate.m in Sources */,
+				E973CF4219DEFE6800AF166C /* ELCameraMonitor.m in Sources */,
 				E976502919DDB21F00BBB152 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +428,7 @@
 				E976504819DDB21F00BBB152 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E976504919DDB21F00BBB152 /* Build configuration list for PBXNativeTarget "nutriPhoneTestPlatformTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +437,7 @@
 				E976504B19DDB21F00BBB152 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
