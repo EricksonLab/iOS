@@ -11,14 +11,19 @@
 #import <CoreMedia/CoreMedia.h>
 #import <ImageIO/ImageIO.h>
 #import <CoreVideo/CoreVideo.h>
+#import <math.h>
+
+typedef enum {
+    FRONT = 0,
+    BACK = 1,
+}ELCameraType;
 
 @interface ELCameraMonitor : UIView <AVCaptureVideoDataOutputSampleBufferDelegate> {
     NSData *imageData;
     UIImage *image;
-    NSMutableArray *sampleImageBuffer;
     CGRect previewRect;
-    UInt64 totalTime;
-    UInt64 intervalTime;
+    NSInteger minFrameDuration;
+    UInt64 timeLastFrame,timeCurrentFrame;
 
     int nextImagePointer;
     BOOL visiblePreview;
@@ -35,23 +40,21 @@
 @property (nonatomic, strong) UITableView *satTable;
 @property (nonatomic, assign) BOOL draggablePreview;
 @property (nonatomic, assign) BOOL videoStopped;
-@property (nonatomic, assign) UInt64 timeLastImageCaptured;
-@property (nonatomic, assign) UInt64 timeStart;
 
 -(id) initWithPreview;
 -(id) initWithoutPreview;
 -(void) setToDefaults;
 -(void) setTorch:(BOOL)torch;
 -(void) setPreviewRect: (CGRect)rect;
--(void) backCameraOn:(BOOL)backCamera;
--(void) setTotalTime: (NSInteger) total withInterval :(NSInteger) interval;
--(BOOL) startCamera;
+-(void) setCameraPosition:(ELCameraType)camera;
+-(void) setMinFrameDuration:(NSInteger)interval;
 
--(NSData *) getLastImageData;
--(NSData *) getNextImageData;
--(NSData *) addImageToBuffer:(NSData*) imageDataToAdd;
+-(BOOL) startCamera;
+-(BOOL) stopCamera;
+
+-(UIImage *) getCurrentImage;
 -(void) captureOutput:(AVCaptureOutput *)captureOutput
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
-       fromConnection:(AVCaptureConnection *)connection;
+        didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+        fromConnection:(AVCaptureConnection *)connection;
 
 @end

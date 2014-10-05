@@ -20,7 +20,9 @@
 }
 */
 
+
 - (id) initWithFrame:(CGRect)frame
+//Initial preview at CGRect frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -31,6 +33,7 @@
 }
 
 - (id) initWithPreview
+//Initial preview at set position
 {
     if (!previewRectDefined)
         previewRect = CGRectMake(180, 30, 120, 90);
@@ -38,6 +41,7 @@
 }
 
 - (id) initWithoutPreview
+//Initial camera without preview
 {
     if (!previewRectDefined)
         previewRect = CGRectMake(0, 0, 0, 0);
@@ -45,7 +49,9 @@
 }
 
 - (void) setToDefaults
+//set all value to defaults
 {
+    minFrameDuration = 200;
     visiblePreview = YES;
     torchOn = YES;
     [self setBackgroundColor:[UIColor blackColor]];
@@ -55,30 +61,34 @@
 }
 
 - (void) setTorch:(BOOL)torch
+//set torch status
 {
     torchOn = torch;
 }
 
 - (void) setPreviewRect:(CGRect)rect
+//set preview position. MUST BE CALLED BEFORE initWithPreview()
 {
     previewRectDefined = YES;
     previewRect = rect;
 }
 
-- (void) backCameraOn:(BOOL)backCamera
+-(void) setCameraPosition:(ELCameraType)camera
+//set camera used
 {
-    if (backCamera)
+    if (camera == BACK)
         cameraType = AVCaptureDevicePositionBack;
     else cameraType = AVCaptureDevicePositionFront;
 }
 
-- (void) setTotalTime:(NSInteger)total withInterval:(NSInteger)interval
+-(void) setMinFrameDuration:(NSInteger)interval
+//set min time between frames to save system resource
 {
-    totalTime = total;
-    intervalTime = interval;
+    minFrameDuration = interval;
 }
 
 - (BOOL)startCamera
+//start camera and record current frame as UIImage
 {
     AVCaptureDevice *device = [self CameraIfAvailable];
     
@@ -99,10 +109,12 @@
             NSLog(@"ERROR: trying to open camera:%@", error);
             return NO;
         } else {
-            if ([session canAddInput:input]) {
+            if ([session canAddInput:input])
+            {
                 //Everythings working, start running camera
                 [session addInput:input];
-                if (visiblePreview) {
+                if (visiblePreview)
+                {
                     //Show preview of graph
                     AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
                     
@@ -128,8 +140,10 @@
                 
                 [[self session] addOutput:videoDataOutput];
                 //Turn on flash light
-                if ([captureDevice hasTorch] && [captureDevice hasFlash] && torchOn) {
-                    if (captureDevice.torchMode == AVCaptureTorchModeOff)  {
+                if ([captureDevice hasTorch] && [captureDevice hasFlash] && torchOn)
+                {
+                    if (captureDevice.torchMode == AVCaptureTorchModeOff)
+                    {
                         [session beginConfiguration];
                         [captureDevice lockForConfiguration:nil];
                         [captureDevice setTorchMode:AVCaptureTorchModeOn];
@@ -139,9 +153,8 @@
                     }
                 }
                 
-                self.timeStart = [[NSDate date] timeIntervalSince1970]*1000;
-                self.timeLastImageCaptured = self.timeStart;
-                
+                timeLastFrame = [[NSDate date] timeIntervalSince1970]*1000;
+                NSLog(@"Video capture start");
                 return YES;
                 
             } else {
@@ -161,6 +174,7 @@
 }
 
 - (AVCaptureDevice *)CameraIfAvailable
+//test if camera is availabe
 {
     NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     //    AVCaptureDevice *captureDevice = nil;
@@ -176,25 +190,24 @@
     if (!captureDevice) {
         captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     }
-    
     return captureDevice;
 }
 
 -(void) captureOutput:(AVCaptureOutput *)captureOutput
         didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         fromConnection:(AVCaptureConnection *)connection
+//if delegate activated, save image
 {
-    UIImage *currentImage = [self imageFromSampleBuffer:sampleBuffer];
-    if (currentImage)
-    {
-        NSLog(@"Image snapped:%f * %f",currentImage.size.width,currentImage.size.height);
-    } else {
-        NSLog(@"Image snapped, but null");
-    }
-    
+    timeCurrentFrame = [[NSDate date] timeIntervalSince1970]*1000;
+    if (timeCurrentFrame - timeLastFrame >= minFrameDuration)
+        timeLastFrame = timeCurrentFrame;
+    else return;
+    UIImage* imageTemp = [self imageFromSampleBuffer:sampleBuffer];
+    imageData = UIImageJPEGRepresentation(imageTemp, 1.0);
 }
 
 - (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
+//converte sample buffer to UIImage
 {
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     // Lock the base address of the pixel buffer
@@ -229,21 +242,40 @@
     return currentImage;
 }
 
--(NSData *) getLastImageData
+-(UIImage *) getCurrentImage
 {
-    NSData* data;
-    return data;
+    NSLog(@"Rendering current Image");
+    if (!imageData) NSLog(@"No imagedata in ELCM");
+    image = [UIImage imageWithData:imageData];
+    return image;
 }
--(NSData *) getNextImageData
+
+-(BOOL) stopCamera
 {
-    NSData* data;
-    return data;
+//Stop camera session
+    if(session)
+    {
+        if (captureDevice.torchMode == AVCaptureTorchModeOn)
+        {
+            [session beginConfiguration];
+            [captureDevice lockForConfiguration:nil];
+            [captureDevice setTorchMode:AVCaptureTorchModeOff];
+            [captureDevice setFlashMode:AVCaptureFlashModeOff];
+            [captureDevice unlockForConfiguration];
+            [session commitConfiguration];
+        }
+        [session stopRunning];
+        session= nil;
+        self.videoStopped = YES;
+        NSLog(@"Video capture stop");
+        return YES;
+    }
+    return NO;
 }
--(NSData *) addImageToBuffer:(NSData*) imageDataToAdd
-{
-    NSData* data;
-    return data;
-}
+
+/*********************Private Methods**********************/
+
+
 
 @end
 

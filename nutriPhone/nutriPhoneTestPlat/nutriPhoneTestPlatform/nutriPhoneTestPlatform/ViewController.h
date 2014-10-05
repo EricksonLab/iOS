@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ELCameraMonitor.h"
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) ELCameraMonitor *cameraMonitor;
+
+
+- (IBAction)showImage:(UIButton *)sender;
+- (IBAction)start:(UIButton *)sender;
+- (IBAction)stop:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIImageView *currentImageView;
 
 @end
 
