@@ -18,36 +18,39 @@ typedef enum {
     BACK = 1,
 }ELCameraType;
 
-@interface ELCameraMonitor : UIView <AVCaptureVideoDataOutputSampleBufferDelegate> {
+@interface ELCameraMonitor : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate> {
     NSData *imageData;
     UIImage *image;
     CGRect previewRect;
     NSInteger minFrameDuration;
     UInt64 timeLastFrame,timeCurrentFrame;
 
-    int nextImagePointer;
+    BOOL cameraOn;
     BOOL visiblePreview;
     BOOL hasImageData;
     BOOL torchOn;
     BOOL previewRectDefined;
 }
 
+
+
 @property (nonatomic, assign) AVCaptureDevicePosition cameraType;
 @property (nonatomic, assign) AVCaptureDevice *captureDevice;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
 @property (nonatomic, strong) AVCaptureConnection *videoConnection;
-@property (nonatomic, strong) UITableView *satTable;
-@property (nonatomic, assign) BOOL draggablePreview;
-@property (nonatomic, assign) BOOL videoStopped;
+@property (nonatomic, assign) int label;
 
--(id) initWithPreview;
--(id) initWithoutPreview;
++ (ELCameraMonitor *) sharedInstance;
+-(id) initWithDefaltSettings;
+-(id) initWithCamera:(ELCameraType)camera
+      torchOn:(BOOL)torch
+      minFrameDuration:(NSInteger)duration;
+
 -(void) setToDefaults;
--(void) setTorch:(BOOL)torch;
--(void) setPreviewRect: (CGRect)rect;
+-(void) setTorchOn:(BOOL)torch;
 -(void) setCameraPosition:(ELCameraType)camera;
--(void) setMinFrameDuration:(NSInteger)interval;
+-(void) setMinFrameDuration:(NSInteger)duration;
 
 -(BOOL) startCamera;
 -(BOOL) stopCamera;

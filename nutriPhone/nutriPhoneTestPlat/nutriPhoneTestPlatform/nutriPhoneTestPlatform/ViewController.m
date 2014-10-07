@@ -34,16 +34,21 @@
 
 - (IBAction)start:(UIButton *)sender {
     if (!self.cameraMonitor) {
-        self.cameraMonitor = [[ELCameraMonitor alloc] initWithPreview];
+    //    self.cameraMonitor = [[ELCameraMonitor alloc] init];
+    //    self.cameraMonitor.label = 16;
+    //    NSLog(@"%d",self.cameraMonitor.label);
+        self.testVideoPreview = [[ELTestVideoPreview alloc] initTestView];
+    //    NSLog(@"%d",self.cameraMonitor.label);
+        [self.view addSubview:self.testVideoPreview];
+        /**self.cameraMonitor = [[ELCameraMonitor alloc] initWithPreview];
         [self.view addSubview:self.cameraMonitor];
-        [self.cameraMonitor startCamera];
+        [self.cameraMonitor startCamera];**/
     }
 }
 
 - (IBAction)stop:(UIButton *)sender {
     if (self.cameraMonitor) {
         [self.cameraMonitor stopCamera];
-        [self.cameraMonitor removeFromSuperview];
         self.cameraMonitor = nil;
     }
 }

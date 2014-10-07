@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2447355419E3195A003E3954 /* ELTestVideoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447355319E3195A003E3954 /* ELTestVideoPreview.m */; };
 		E973CF4219DEFE6800AF166C /* ELCameraMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = E973CF4119DEFE6800AF166C /* ELCameraMonitor.m */; };
 		E976502919DDB21F00BBB152 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E976502819DDB21F00BBB152 /* main.m */; };
 		E976502C19DDB21F00BBB152 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E976502B19DDB21F00BBB152 /* AppDelegate.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2447355219E3195A003E3954 /* ELTestVideoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELTestVideoPreview.h; sourceTree = "<group>"; };
+		2447355319E3195A003E3954 /* ELTestVideoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELTestVideoPreview.m; sourceTree = "<group>"; };
 		E973CF4019DEFE6800AF166C /* ELCameraMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCameraMonitor.h; sourceTree = "<group>"; };
 		E973CF4119DEFE6800AF166C /* ELCameraMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCameraMonitor.m; sourceTree = "<group>"; };
 		E976502319DDB21F00BBB152 /* nutriPhoneTestPlatform.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nutriPhoneTestPlatform.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,9 +82,19 @@
 			name = MeasureController;
 			sourceTree = "<group>";
 		};
+		2447351F19E2E260003E3954 /* TestVideoPreview */ = {
+			isa = PBXGroup;
+			children = (
+				2447355219E3195A003E3954 /* ELTestVideoPreview.h */,
+				2447355319E3195A003E3954 /* ELTestVideoPreview.m */,
+			);
+			name = TestVideoPreview;
+			sourceTree = "<group>";
+		};
 		E973CF3F19DEFE3100AF166C /* nutriPhoneLibs */ = {
 			isa = PBXGroup;
 			children = (
+				2447351F19E2E260003E3954 /* TestVideoPreview */,
 				2447351B19E0C29D003E3954 /* MeasureController */,
 				2447351919E09BED003E3954 /* CameraMonitor */,
 			);
@@ -252,6 +265,7 @@
 				E976502F19DDB21F00BBB152 /* ViewController.m in Sources */,
 				E976502C19DDB21F00BBB152 /* AppDelegate.m in Sources */,
 				E973CF4219DEFE6800AF166C /* ELCameraMonitor.m in Sources */,
+				2447355419E3195A003E3954 /* ELTestVideoPreview.m in Sources */,
 				E976502919DDB21F00BBB152 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,6 +12,8 @@
 
 @synthesize cameraType, session, videoConnection, videoDataOutput, captureDevice;
 
+static ELCameraMonitor* sharedMonitor;
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -21,56 +23,85 @@
 */
 
 
-- (id) initWithFrame:(CGRect)frame
-//Initial preview at CGRect frame
+#pragma mark － Singleton Class Implement
+
++ (ELCameraMonitor *) sharedInstance
+//Make ELCameraMonitor a singleton class
 {
-    self = [super initWithFrame:frame];
+    @synchronized (self)
+    {
+        if (sharedMonitor == nil)
+        {
+            sharedMonitor = [[self alloc] init];
+        }
+    }
+    return sharedMonitor;
+}
+
++ (id) allocWithZone:(NSZone *)zone //allocWithZone
+{
+    @synchronized (self) {
+        if (sharedMonitor == nil) {
+            sharedMonitor = [super allocWithZone:zone];
+            return sharedMonitor;
+        }
+    }
+    return nil;
+}
+
+- (id) copyWithZone:(NSZone *)zone 
+{
+    return self;
+}
+
+#pragma mark - Initialization
+
+- (id) init
+{
+    return [self initWithDefaltSettings];
+}
+
+
+- (id) initWithDefaltSettings
+{
+    @synchronized (self) {
+        self = [super init];
+        if (self) {
+            // Initialization code
+            [self setToDefaults];
+        }
+        return self;
+    }
+}
+
+-(id) initWithCamera:(ELCameraType)camera
+      torchOn:(BOOL)torch
+      minFrameDuration:(NSInteger)duration
+{
+    self = [super init];
     if (self) {
         // Initialization code
-        [self setToDefaults];
+        [self setCameraPosition:BACK];
+        [self setTorchOn:YES];
+        [self setMinFrameDuration:duration];
     }
     return self;
 }
 
-- (id) initWithPreview
-//Initial preview at set position
-{
-    if (!previewRectDefined)
-        previewRect = CGRectMake(180, 30, 120, 90);
-    return [self initWithFrame:previewRect];
-}
-
-- (id) initWithoutPreview
-//Initial camera without preview
-{
-    if (!previewRectDefined)
-        previewRect = CGRectMake(0, 0, 0, 0);
-    return [self initWithFrame:previewRect];
-}
+#pragma mark - Setting Functions
 
 - (void) setToDefaults
 //set all value to defaults
 {
     minFrameDuration = 200;
-    visiblePreview = YES;
     torchOn = YES;
-    [self setBackgroundColor:[UIColor blackColor]];
-    self.layer.cornerRadius = 5;
-    self.layer.masksToBounds = YES;
     self.cameraType = AVCaptureDevicePositionBack;
 }
 
-- (void) setTorch:(BOOL)torch
+- (void) setTorchOn:(BOOL)torch
 //set torch status
 {
     torchOn = torch;
-}
-
-- (void) setPreviewRect:(CGRect)rect
-//set preview position. MUST BE CALLED BEFORE initWithPreview()
-{
-    previewRectDefined = YES;
-    previewRect = rect;
 }
 
 -(void) setCameraPosition:(ELCameraType)camera
@@ -81,17 +112,20 @@
     else cameraType = AVCaptureDevicePositionFront;
 }
 
--(void) setMinFrameDuration:(NSInteger)interval
+-(void) setMinFrameDuration:(NSInteger)duration
 //set min time between frames to save system resource
 {
-    minFrameDuration = interval;
+    if (duration<100) duration = 100;
+    minFrameDuration = duration;
 }
+
+#pragma mark - Camera Control
 
 - (BOOL)startCamera
 //start camera and record current frame as UIImage
 {
-    AVCaptureDevice *device = [self CameraIfAvailable];
-    
+    if (session) return YES;
+    AVCaptureDevice *device = [self cameraIfAvailable];
     if (device)
     {
         if (!session)
@@ -107,24 +141,14 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ERROR:" message:@"Cannot open camera"  delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
             [alert show];
             NSLog(@"ERROR: trying to open camera:%@", error);
+            session = nil;
             return NO;
         } else {
             if ([session canAddInput:input])
             {
                 //Everythings working, start running camera
                 [session addInput:input];
-                if (visiblePreview)
-                {
-                    //Show preview of graph
-                    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-                    
-                    captureVideoPreviewLayer.frame = self.bounds;
-                    captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-                    
-                    [self.layer addSublayer:captureVideoPreviewLayer];
-                }
                 [session startRunning];
-                self.videoStopped = NO;
                 //Set up image output;
                 //videoDataOutput code
                 videoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -161,6 +185,7 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ERROR:" message:@"Couldn't add input"  delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
                 [alert show];
                 NSLog(@"ERROR: Couldn't add input");
+                session = nil;
                 return NO;
             }
         }
@@ -173,7 +198,7 @@
     }
 }
 
-- (AVCaptureDevice *)CameraIfAvailable
+- (AVCaptureDevice *)cameraIfAvailable
 //test if camera is availabe
 {
     NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -242,13 +267,6 @@
     return currentImage;
 }
 
--(UIImage *) getCurrentImage
-{
-    NSLog(@"Rendering current Image");
-    if (!imageData) NSLog(@"No imagedata in ELCM");
-    image = [UIImage imageWithData:imageData];
-    return image;
-}
 
 -(BOOL) stopCamera
 {
@@ -266,12 +284,22 @@
         }
         [session stopRunning];
         session= nil;
-        self.videoStopped = YES;
         NSLog(@"Video capture stop");
         return YES;
     }
     return NO;
 }
+
+#pragma mark - Output
+
+-(UIImage *) getCurrentImage
+{
+    NSLog(@"Rendering current Image");
+    if (!imageData) NSLog(@"No imagedata in ELCM");
+    image = [UIImage imageWithData:imageData];
+    return image;
+}
+
 
 /*********************Private Methods**********************/
 

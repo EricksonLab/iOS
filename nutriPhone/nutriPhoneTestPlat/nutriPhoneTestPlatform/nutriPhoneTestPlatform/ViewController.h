@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ELCameraMonitor.h"
+#import "ELTestVideoPreview.h"
 
 @interface ViewController : UIViewController
 
-@property (strong, nonatomic) ELCameraMonitor *cameraMonitor;
+@property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
+@property (strong, nonatomic) ELCameraMonitor* cameraMonitor;
+
 
 
 - (IBAction)showImage:(UIButton *)sender;
