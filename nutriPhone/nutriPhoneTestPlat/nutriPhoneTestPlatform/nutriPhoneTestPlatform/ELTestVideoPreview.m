@@ -10,6 +10,7 @@
 
 
 @implementation ELTestVideoPreview
+#pragma mark - Initialization
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -18,6 +19,8 @@
     // Drawing code
 }
 */
+
+
 
 - (id) initTestView
 {
@@ -47,6 +50,8 @@
     return self;
 }
 
+#pragma mark - Settings
+
 - (void) setToDefaults
 //set all value to defaults
 {
@@ -54,5 +59,29 @@
     self.layer.cornerRadius = 5;
     self.layer.masksToBounds = YES;
 }
+
+-(void) torchOn {
+    
+}
+
+-(void) torchOff {
+    
+}
+
+#pragma mark - Video Control
+
+-(void) pausePreview {
+    
+}
+
+-(void) continuePreview {
+    
+}
+
+-(void) reconnectPreview {
+    
+}
+
+
 
 @end
