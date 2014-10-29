@@ -10,14 +10,14 @@
 #import "ELCameraMonitor.h"
 #import "ELTestVideoPreview.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    NSTimer* measureController;
+
+}
 
 @property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
 @property (strong, nonatomic) ELCameraMonitor* cameraMonitor;
 
-
-
-- (IBAction)showImage:(UIButton *)sender;
 - (IBAction)start:(UIButton *)sender;
 - (IBAction)stop:(UIButton *)sender;
 

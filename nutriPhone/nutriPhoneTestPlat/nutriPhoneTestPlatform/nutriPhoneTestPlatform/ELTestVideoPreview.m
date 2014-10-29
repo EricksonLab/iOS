@@ -45,8 +45,8 @@
 //set all value to defaults
 {
     [self setBackgroundColor:[UIColor blackColor]];
-    self.layer.cornerRadius = 5;
-    self.layer.masksToBounds = YES;
+ //   self.layer.cornerRadius = 5;
+    self.layer.masksToBounds = NO;
 }
 
 -(void) torchOn {

@@ -19,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [_currentImageView setContentMode:UIViewContentModeScaleAspectFit];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,32 +27,52 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)showImage:(UIButton *)sender {
+-(void) measureOnce {
     UIImage *currentImage = [self.cameraMonitor getCurrentImage];
     if (!currentImage) NSLog(@"No Image");
     else _currentImageView.image = currentImage;
 }
 
+
 - (IBAction)start:(UIButton *)sender {
     if (!self.cameraMonitor) {
-        self.cameraMonitor = [[ELCameraMonitor alloc] init];
-        self.testVideoPreview = [[ELTestVideoPreview alloc] initTestView];
-        
-        [self.view addSubview:self.testVideoPreview];
-        [self.cameraMonitor startCamera];
-        [self.testVideoPreview buildConnectionWithCameraMonitor:self.cameraMonitor];
+        _cameraMonitor = [[ELCameraMonitor alloc] init];
+        _testVideoPreview = [[ELTestVideoPreview alloc] initTestView];
+      //  [self.testVideoPreview
+        [self.view addSubview:_testVideoPreview];
+        [_cameraMonitor startCamera];
+        [_testVideoPreview buildConnectionWithCameraMonitor:_cameraMonitor];
+        [_testVideoPreview setContentMode:UIViewContentModeCenter];
+        measureController =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureOnce) userInfo:nil repeats:YES];
+        [measureController fire];
     }
 }
 
 - (IBAction)stop:(UIButton *)sender {
-    if (self.cameraMonitor) {
-        [self.cameraMonitor stopCamera];
-        self.cameraMonitor = nil;
+    [measureController invalidate];
+    measureController = nil;
+    if (_cameraMonitor) {
+        [_cameraMonitor stopCamera];
+        _cameraMonitor = nil;
     }
-    if (self.testVideoPreview) {
-        [self.testVideoPreview removeFromSuperview];
-        self.testVideoPreview = nil;
+    if (_testVideoPreview) {
+        [_testVideoPreview removeFromSuperview];
+        _testVideoPreview = nil;
     }
     
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [measureController invalidate];
+    measureController = nil;
+    if (_cameraMonitor) {
+        [_cameraMonitor stopCamera];
+        _cameraMonitor = nil;
+    }
+    if (_testVideoPreview) {
+        [_testVideoPreview removeFromSuperview];
+        _testVideoPreview = nil;
+    }
 }
 @end
