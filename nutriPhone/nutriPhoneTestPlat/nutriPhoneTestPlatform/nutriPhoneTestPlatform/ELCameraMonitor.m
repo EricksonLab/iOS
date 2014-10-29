@@ -8,6 +8,8 @@
 
 #import "ELCameraMonitor.h"
 
+#define ELCameraMonitorTorchOn YES;
+
 @implementation ELCameraMonitor
 
 @synthesize cameraType, session, videoConnection, videoDataOutput, captureDevice;
@@ -21,38 +23,6 @@ static ELCameraMonitor* sharedMonitor;
     // Drawing code
 }
 */
-
-
-#pragma mark － Singleton Class Implement
-
-+ (ELCameraMonitor *) sharedInstance
-//Make ELCameraMonitor a singleton class
-{
-    @synchronized (self)
-    {
-        if (sharedMonitor == nil)
-        {
-            sharedMonitor = [[self alloc] init];
-        }
-    }
-    return sharedMonitor;
-}
-
-+ (id) allocWithZone:(NSZone *)zone //allocWithZone
-{
-    @synchronized (self) {
-        if (sharedMonitor == nil) {
-            sharedMonitor = [super allocWithZone:zone];
-            return sharedMonitor;
-        }
-    }
-    return nil;
-}
-
-- (id) copyWithZone:(NSZone *)zone 
-{
-    return self;
-}
 
 #pragma mark - Initialization
 
@@ -75,14 +45,14 @@ static ELCameraMonitor* sharedMonitor;
 }
 
 -(id) initWithCamera:(ELCameraType)camera
-      torchOn:(BOOL)torch
+      torchMode:(ELCameraMonitorTorchMode)torchMode
       minFrameDuration:(NSInteger)duration
 {
     self = [super init];
     if (self) {
         // Initialization code
         [self setCameraPosition:BACK];
-        [self setTorchOn:YES];
+        [self setTorchStatus:ELCameraMonitorTorchModeOn];
         [self setMinFrameDuration:duration];
     }
     return self;
@@ -94,14 +64,14 @@ static ELCameraMonitor* sharedMonitor;
 //set all value to defaults
 {
     minFrameDuration = 200;
-    torchOn = YES;
+    torchMode = YES;
     self.cameraType = AVCaptureDevicePositionBack;
 }
 
-- (void) setTorchOn:(BOOL)torch
+- (void) setTorchMode:(ELCameraMonitorTorchMode)torch
 //set torch status
 {
-    torchOn = torch;
+    torchMode = torch;
 }
 
 -(void) setCameraPosition:(ELCameraType)camera
@@ -164,18 +134,7 @@ static ELCameraMonitor* sharedMonitor;
                 
                 [[self session] addOutput:videoDataOutput];
                 //Turn on flash light
-                if ([captureDevice hasTorch] && [captureDevice hasFlash] && torchOn)
-                {
-                    if (captureDevice.torchMode == AVCaptureTorchModeOff)
-                    {
-                        [session beginConfiguration];
-                        [captureDevice lockForConfiguration:nil];
-                        [captureDevice setTorchMode:AVCaptureTorchModeOn];
-                        [captureDevice setFlashMode:AVCaptureFlashModeOn];
-                        [captureDevice unlockForConfiguration];
-                        [session commitConfiguration];
-                    }
-                }
+                
                 
                 timeLastFrame = [[NSDate date] timeIntervalSince1970]*1000;
                 NSLog(@"Video capture start");
@@ -288,6 +247,27 @@ static ELCameraMonitor* sharedMonitor;
         return YES;
     }
     return NO;
+}
+
+-(void) restoreSettings {
+    
+    if ([captureDevice hasTorch] && [captureDevice hasFlash]) {
+        if (captureDevice.torchMode == AVCaptureTorchModeOff && torchMode==ELCameraMonitorTorchModeOn) {
+            [session beginConfiguration];
+            [captureDevice lockForConfiguration:nil];
+            [captureDevice setTorchMode:AVCaptureTorchModeOn];
+            [captureDevice setFlashMode:AVCaptureFlashModeOn];
+            [captureDevice unlockForConfiguration];
+            [session commitConfiguration];
+        } else if (captureDevice.torchMode == AVCaptureTorchModeOn && torchMode==ELCameraMonitorTorchModeOff){
+            [session beginConfiguration];
+            [captureDevice lockForConfiguration:nil];
+            [captureDevice setTorchMode:AVCaptureTorchModeOff];
+            [captureDevice setFlashMode:AVCaptureFlashModeOff];
+            [captureDevice unlockForConfiguration];
+            [session commitConfiguration];
+        }
+    }
 }
 
 #pragma mark - Output

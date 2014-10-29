@@ -13,9 +13,8 @@
     
 }
 
-@property (nonatomic,strong) ELCameraMonitor* cameraMonitor;
-
 - (id) initTestView;
+- (BOOL) buildConnectionWithCameraMonitor:(ELCameraMonitor *)cameraMonitor;
 
 
 @end

@@ -13,6 +13,11 @@
 #import <CoreVideo/CoreVideo.h>
 #import <math.h>
 
+typedef enum{
+    ELCameraMonitorTorchModeOn = YES,
+    ELCameraMonitorTorchModeOff = NO,
+
+}ELCameraMonitorTorchMode;
 typedef enum {
     FRONT = 0,
     BACK = 1,
@@ -28,7 +33,7 @@ typedef enum {
     BOOL cameraOn;
     BOOL visiblePreview;
     BOOL hasImageData;
-    BOOL torchOn;
+    ELCameraMonitorTorchMode torchMode;
     BOOL previewRectDefined;
 }
 
@@ -41,14 +46,13 @@ typedef enum {
 @property (nonatomic, strong) AVCaptureConnection *videoConnection;
 @property (nonatomic, assign) int label;
 
-+ (ELCameraMonitor *) sharedInstance;
 -(id) initWithDefaltSettings;
 -(id) initWithCamera:(ELCameraType)camera
       torchOn:(BOOL)torch
       minFrameDuration:(NSInteger)duration;
 
 -(void) setToDefaults;
--(void) setTorchOn:(BOOL)torch;
+-(void) setTorchStatus:(BOOL)torchStatus;
 -(void) setCameraPosition:(ELCameraType)camera;
 -(void) setMinFrameDuration:(NSInteger)duration;
 
@@ -59,5 +63,6 @@ typedef enum {
 -(void) captureOutput:(AVCaptureOutput *)captureOutput
         didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         fromConnection:(AVCaptureConnection *)connection;
+-(void) restoreSettings;
 
 @end

@@ -34,15 +34,12 @@
 
 - (IBAction)start:(UIButton *)sender {
     if (!self.cameraMonitor) {
-    //    self.cameraMonitor = [[ELCameraMonitor alloc] init];
-    //    self.cameraMonitor.label = 16;
-    //    NSLog(@"%d",self.cameraMonitor.label);
+        self.cameraMonitor = [[ELCameraMonitor alloc] init];
         self.testVideoPreview = [[ELTestVideoPreview alloc] initTestView];
-    //    NSLog(@"%d",self.cameraMonitor.label);
+        
         [self.view addSubview:self.testVideoPreview];
-        /**self.cameraMonitor = [[ELCameraMonitor alloc] initWithPreview];
-        [self.view addSubview:self.cameraMonitor];
-        [self.cameraMonitor startCamera];**/
+        [self.cameraMonitor startCamera];
+        [self.testVideoPreview buildConnectionWithCameraMonitor:self.cameraMonitor];
     }
 }
 
@@ -51,5 +48,10 @@
         [self.cameraMonitor stopCamera];
         self.cameraMonitor = nil;
     }
+    if (self.testVideoPreview) {
+        [self.testVideoPreview removeFromSuperview];
+        self.testVideoPreview = nil;
+    }
+    
 }
 @end

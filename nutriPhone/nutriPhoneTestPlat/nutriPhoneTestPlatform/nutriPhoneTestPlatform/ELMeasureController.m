@@ -13,7 +13,13 @@
 #pragma mark - Initialization
 
 -(id) init{
-    return [super init];
+    self = [super init];
+    if (self) {
+        // Initialization code
+        
+    }
+    return self;
+    
 }
 
 -(void) initWithSettings {

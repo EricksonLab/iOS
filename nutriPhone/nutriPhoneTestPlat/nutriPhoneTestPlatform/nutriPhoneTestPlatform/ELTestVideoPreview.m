@@ -35,18 +35,7 @@
     if (self) {
         // Initialization code
         [self setToDefaults];
-        self.cameraMonitor = [[ELCameraMonitor alloc ]init];
-     //   self.cameraMonitor.label = 26;
-     //   NSLog(@"%d",self.cameraMonitor.label);
-        [self.cameraMonitor startCamera];
-         //Show preview of graph
-     /**    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.cameraMonitor.session];
-         
-         captureVideoPreviewLayer.frame = self.bounds;
-         captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-         
-         [self.layer addSublayer:captureVideoPreviewLayer];**/
-         }
+    }
     return self;
 }
 
@@ -69,6 +58,25 @@
 }
 
 #pragma mark - Video Control
+
+-(BOOL) buildConnectionWithCameraMonitor:(ELCameraMonitor *)cameraMonitor {
+    if (!cameraMonitor) {
+        NSLog(@"Camera monitor not defined");
+        return NO;
+    }
+    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:cameraMonitor.session];
+    
+    captureVideoPreviewLayer.frame = self.bounds;
+    captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
+    [self.layer addSublayer:captureVideoPreviewLayer];
+    
+    //Restore torch status
+    [cameraMonitor restoreSettings];
+
+    
+    return captureVideoPreviewLayer;
+}
 
 -(void) pausePreview {
     
