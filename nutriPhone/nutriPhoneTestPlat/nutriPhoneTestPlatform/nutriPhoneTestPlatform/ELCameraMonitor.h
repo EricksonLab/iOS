@@ -48,7 +48,7 @@ typedef enum {
 
 -(id) initWithDefaltSettings;
 -(id) initWithCamera:(ELCameraType)camera
-      torchOn:(BOOL)torch
+        torchMode:(ELCameraMonitorTorchMode)torchMode
       minFrameDuration:(NSInteger)duration;
 
 -(void) setToDefaults;

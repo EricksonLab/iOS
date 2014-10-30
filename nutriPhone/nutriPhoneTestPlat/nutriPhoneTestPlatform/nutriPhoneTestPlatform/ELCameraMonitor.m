@@ -10,6 +10,12 @@
 
 #define ELCameraMonitorTorchOn YES;
 
+typedef struct {
+    int hue;
+    float sat,lig;
+    BOOL valid;
+}HSLPixel;
+
 @implementation ELCameraMonitor
 
 @synthesize cameraType, session, videoConnection, videoDataOutput, captureDevice;
@@ -57,6 +63,47 @@ static ELCameraMonitor* sharedMonitor;
     }
     return self;
 }
+
+#pragma mark - Color calibration
+
+int maxValue(int r, int g, int b){
+    int max = r;
+    if (g>max) max = g;
+    if (b>max) max = b;
+    return max;
+}
+
+int minValue(int r, int g, int b){
+    int min = r;
+    if (g<min) min = g;
+    if (b<min) min = b;
+    return min;
+}
+
+int hueFromRGB(int r, int g, int b){
+    int max = maxValue(r, g, b);
+    int min = minValue(r, g, b);
+    float dif = max - min;
+    if (dif==0) return 0;
+    else if (max == r && g>=b) return (int)roundf(60*(g-b)/dif);
+    else if (max == r && g<b) return (int)roundf(60*(g-b)/dif+360);
+    else if (max == g) return (int)roundf(60*(b-r)/dif+120);
+    else return (int)roundf(60*(r-g)/dif+240);
+}
+
+float satFromRGB(int r, int g, int b){
+    float l = ligFromRGB(r,g,b);
+    float max = maxValue(r, g, b);
+    float min = minValue(r, g, b);
+    float dif = (float)(max - min)/2.55;
+    if (l<0.5) return dif/l/2;
+    else return dif/(2-2*l);
+}
+
+float ligFromRGB(int r, int g, int b){
+    return 0.5*(maxValue(r, g, b) + minValue(r, g, b))/255;
+}
+
 
 #pragma mark - Setting Functions
 
@@ -213,6 +260,22 @@ static ELCameraMonitor* sharedMonitor;
     // Get the data size for contiguous planes of the pixel buffer.
     size_t bufferSize = CVPixelBufferGetDataSize(imageBuffer);
     // Creat a array with hsv color data
+    UInt8 *pointer = (UInt8 *)baseAddress;
+    int size = (int)(bufferSize - 8)/4; //Each 4 bytes represents a pixel, except last 8 bytes
+//    UInt8 imageByteData[height][width][4];
+    HSLPixel pixels[size];
+    float pixelCount[1000] = {0};
+    for (int i = 0; i<size; i++) {
+        int b = *pointer; pointer++;
+        int g = *pointer; pointer++;
+        int r = *pointer; pointer=pointer+2; //Skip alpha value
+        pixels[i].hue = hueFromRGB(r,g,b);
+        pixels[i].lig = ligFromRGB(r,g,b);
+        pixels[i].sat = satFromRGB(r,g,b);
+        if((float)(i / width)>0.25*height && (float)(i / width)<0.75*height)
+            pixelCount[i % width] = pixelCount[i % width] + (float)hueFromRGB(r, g, b) *2 / width;
+    }
+    
         // Create a Quartz direct-access data provider that uses data we supply
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, baseAddress, bufferSize, NULL);
     // Create a bitmap image from data supplied by our data provider

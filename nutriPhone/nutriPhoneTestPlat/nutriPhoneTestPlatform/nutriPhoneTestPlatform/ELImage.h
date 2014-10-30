@@ -24,6 +24,6 @@ typedef struct{
 
 -(ELColor) colorAtLine:(uint)x Row:(uint)y;
 -(void) setColorAtLine:(uint)x Row:(uint)y Color:(ELColor)color;
--(void) print;
+-(void) print:(Byte*)b;
 
 @end

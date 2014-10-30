@@ -60,7 +60,9 @@
         _testVideoPreview = nil;
     }
     ELImage *img = [[ELImage alloc] init];
-    [img print];
+    Byte* p=(UInt8 *)malloc(sizeof(UInt8)*20);
+    p[10]=5;
+    [img print:p];
     
 }
 

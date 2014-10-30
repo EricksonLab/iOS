@@ -19,8 +19,8 @@
     return self;
 }
 
--(void) print{
-    NSLog(@"%d",p[10]);
+-(void) print:(Byte*)b{
+    NSLog(@"%d",b[10]);
 }
 
 @end
