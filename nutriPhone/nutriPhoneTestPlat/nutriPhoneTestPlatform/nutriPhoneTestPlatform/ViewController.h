@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ELCameraMonitor.h"
 #import "ELTestVideoPreview.h"
+#import "ELImage.h"
 
 @interface ViewController : UIViewController {
     NSTimer* measureController;

@@ -16,7 +16,7 @@ typedef struct{
 }ELColor;
 
 @interface ELImage: NSObject {
-    UInt8 p;
+    UInt8* p;
 }
 
 @property (assign, nonatomic) size_t width,height;
@@ -24,5 +24,6 @@ typedef struct{
 
 -(ELColor) colorAtLine:(uint)x Row:(uint)y;
 -(void) setColorAtLine:(uint)x Row:(uint)y Color:(ELColor)color;
+-(void) print;
 
 @end

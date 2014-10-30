@@ -10,6 +10,17 @@
 
 @implementation ELImage
 
--(id)initWith
+-(id)init{
+    self = [super init];
+    if (self) {
+        p=(UInt8 *)malloc(sizeof(UInt8)*20);
+        p[10]=3;
+    }
+    return self;
+}
+
+-(void) print{
+    NSLog(@"%d",p[10]);
+}
 
 @end

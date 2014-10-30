@@ -59,6 +59,8 @@
         [_testVideoPreview removeFromSuperview];
         _testVideoPreview = nil;
     }
+    ELImage *img = [[ELImage alloc] init];
+    [img print];
     
 }
 
