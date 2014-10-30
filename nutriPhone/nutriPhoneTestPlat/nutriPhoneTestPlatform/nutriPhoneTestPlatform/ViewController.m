@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "ELCameraMonitor.h"
+
+
 
 @interface ViewController ()
 
@@ -28,6 +29,7 @@
 }
 
 -(void) measureOnce {
+    [_cameraMonitor restoreSettings];
     UIImage *currentImage = [self.cameraMonitor getCurrentImage];
     if (!currentImage) NSLog(@"No Image");
     else _currentImageView.image = currentImage;
@@ -37,14 +39,19 @@
 - (IBAction)start:(UIButton *)sender {
     if (!self.cameraMonitor) {
         _cameraMonitor = [[ELCameraMonitor alloc] init];
+        [_cameraMonitor startCamera];
+        if (_testVideoPreview) {
+            [_testVideoPreview removeFromSuperview];
+            _testVideoPreview = nil;
+        }
         _testVideoPreview = [[ELTestVideoPreview alloc] initTestView];
       //  [self.testVideoPreview
         [self.view addSubview:_testVideoPreview];
-        [_cameraMonitor startCamera];
         [_testVideoPreview buildConnectionWithCameraMonitor:_cameraMonitor];
         [_testVideoPreview setContentMode:UIViewContentModeCenter];
         measureController =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureOnce) userInfo:nil repeats:YES];
         [measureController fire];
+        
     }
 }
 
@@ -55,14 +62,6 @@
         [_cameraMonitor stopCamera];
         _cameraMonitor = nil;
     }
-    if (_testVideoPreview) {
-        [_testVideoPreview removeFromSuperview];
-        _testVideoPreview = nil;
-    }
-    ELImage *img = [[ELImage alloc] init];
-    Byte* p=(UInt8 *)malloc(sizeof(UInt8)*20);
-    p[10]=5;
-    [img print:p];
     
 }
 

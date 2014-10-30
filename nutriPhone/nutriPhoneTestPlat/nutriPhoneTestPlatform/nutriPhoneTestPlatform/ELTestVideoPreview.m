@@ -73,9 +73,10 @@
     
     //Restore torch status
     [cameraMonitor restoreSettings];
-
     
-    return captureVideoPreviewLayer;
+
+    if (!captureVideoPreviewLayer) return false;
+    else return true;
 }
 
 -(void) pausePreview {

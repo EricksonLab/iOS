@@ -58,50 +58,10 @@ static ELCameraMonitor* sharedMonitor;
     if (self) {
         // Initialization code
         [self setCameraPosition:BACK];
-        [self setTorchStatus:ELCameraMonitorTorchModeOn];
+        [self setTorchMode:ELCameraMonitorTorchModeOn];
         [self setMinFrameDuration:duration];
     }
     return self;
-}
-
-#pragma mark - Color calibration
-
-int maxValue(int r, int g, int b){
-    int max = r;
-    if (g>max) max = g;
-    if (b>max) max = b;
-    return max;
-}
-
-int minValue(int r, int g, int b){
-    int min = r;
-    if (g<min) min = g;
-    if (b<min) min = b;
-    return min;
-}
-
-int hueFromRGB(int r, int g, int b){
-    int max = maxValue(r, g, b);
-    int min = minValue(r, g, b);
-    float dif = max - min;
-    if (dif==0) return 0;
-    else if (max == r && g>=b) return (int)roundf(60*(g-b)/dif);
-    else if (max == r && g<b) return (int)roundf(60*(g-b)/dif+360);
-    else if (max == g) return (int)roundf(60*(b-r)/dif+120);
-    else return (int)roundf(60*(r-g)/dif+240);
-}
-
-float satFromRGB(int r, int g, int b){
-    float l = ligFromRGB(r,g,b);
-    float max = maxValue(r, g, b);
-    float min = minValue(r, g, b);
-    float dif = (float)(max - min)/2.55;
-    if (l<0.5) return dif/l/2;
-    else return dif/(2-2*l);
-}
-
-float ligFromRGB(int r, int g, int b){
-    return 0.5*(maxValue(r, g, b) + minValue(r, g, b))/255;
 }
 
 
@@ -180,7 +140,7 @@ float ligFromRGB(int r, int g, int b){
                 [videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
                 
                 [[self session] addOutput:videoDataOutput];
-                //Turn on flash light
+                //Turn on/off flash light
                 
                 
                 timeLastFrame = [[NSDate date] timeIntervalSince1970]*1000;
@@ -244,6 +204,7 @@ float ligFromRGB(int r, int g, int b){
     // Lock the base address of the pixel buffer
     CVPixelBufferLockBaseAddress(imageBuffer,0);
     // Get the number of bytes per row for the pixel buffer
+    elImage = [[ELImage alloc] initWithCVImageBufferRef:imageBuffer];
     size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
     // Get the pixel buffer width and height
     size_t width = CVPixelBufferGetWidth(imageBuffer);
@@ -263,7 +224,7 @@ float ligFromRGB(int r, int g, int b){
     UInt8 *pointer = (UInt8 *)baseAddress;
     int size = (int)(bufferSize - 8)/4; //Each 4 bytes represents a pixel, except last 8 bytes
 //    UInt8 imageByteData[height][width][4];
-    HSLPixel pixels[size];
+ /*   HSLPixel pixels[size];
     float pixelCount[1000] = {0};
     for (int i = 0; i<size; i++) {
         int b = *pointer; pointer++;
@@ -274,7 +235,7 @@ float ligFromRGB(int r, int g, int b){
         pixels[i].sat = satFromRGB(r,g,b);
         if((float)(i / width)>0.25*height && (float)(i / width)<0.75*height)
             pixelCount[i % width] = pixelCount[i % width] + (float)hueFromRGB(r, g, b) *2 / width;
-    }
+    }*/
     
         // Create a Quartz direct-access data provider that uses data we supply
     CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, baseAddress, bufferSize, NULL);
@@ -339,8 +300,13 @@ float ligFromRGB(int r, int g, int b){
 {
     NSLog(@"Rendering current Image");
     if (!imageData) NSLog(@"No imagedata in ELCM");
-    image = [UIImage imageWithData:imageData];
-    return image;
+    uiImage = [UIImage imageWithData:imageData];
+    return uiImage;
+}
+
+-(ELImage *) getCurrentELImage
+{
+    return elImage;
 }
 
 

@@ -12,6 +12,7 @@
 #import <ImageIO/ImageIO.h>
 #import <CoreVideo/CoreVideo.h>
 #import <math.h>
+#import "ELImageProcessor.h"
 
 typedef enum{
     ELCameraMonitorTorchModeOn = YES,
@@ -25,10 +26,11 @@ typedef enum {
 
 @interface ELCameraMonitor : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate> {
     NSData *imageData;
-    UIImage *image;
+    UIImage *uiImage;
     CGRect previewRect;
     NSInteger minFrameDuration;
     UInt64 timeLastFrame,timeCurrentFrame;
+    ELImage *elImage;
 
     BOOL cameraOn;
     BOOL visiblePreview;
@@ -52,7 +54,7 @@ typedef enum {
       minFrameDuration:(NSInteger)duration;
 
 -(void) setToDefaults;
--(void) setTorchStatus:(BOOL)torchStatus;
+-(void) setTorchMode:(ELCameraMonitorTorchMode)torchMode;
 -(void) setCameraPosition:(ELCameraType)camera;
 -(void) setMinFrameDuration:(NSInteger)duration;
 
@@ -60,6 +62,7 @@ typedef enum {
 -(BOOL) stopCamera;
 
 -(UIImage *) getCurrentImage;
+-(ELImage *) getCurrentELImage;
 -(void) captureOutput:(AVCaptureOutput *)captureOutput
         didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         fromConnection:(AVCaptureConnection *)connection;
