@@ -69,11 +69,10 @@ float ligFromRGB(int r, int g, int b){
     size_t newWidth = right-left+1;
     size_t newHeight = bottom-top+1;
     ELImage* newImage = [[ELImage alloc] initWithWidth:newWidth Height:newHeight];
-    uint newImagePointer = 0;
     for (int i=top; i<=bottom; i++)
         for (int j=left; j<right; j++) {
-            uint n = j-1 + (i-1)*newWidth;
-            newImage.imageBuffer[newImagePointer]=sourceImage.imageBuffer[n];
+            ELColor color = [sourceImage colorAtX:j Y:i];
+            [newImage setColorAtX:j-bottom+1 Y:i-top+1 Color:color];
         }
     return newImage;
 }

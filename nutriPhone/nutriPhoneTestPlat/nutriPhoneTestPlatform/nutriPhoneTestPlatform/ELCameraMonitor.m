@@ -221,8 +221,7 @@ static ELCameraMonitor* sharedMonitor;
     // Get the data size for contiguous planes of the pixel buffer.
     size_t bufferSize = CVPixelBufferGetDataSize(imageBuffer);
     // Creat a array with hsv color data
-    UInt8 *pointer = (UInt8 *)baseAddress;
-    int size = (int)(bufferSize - 8)/4; //Each 4 bytes represents a pixel, except last 8 bytes
+    //Each 4 bytes represents a pixel, except last 8 bytes
 //    UInt8 imageByteData[height][width][4];
  /*   HSLPixel pixels[size];
     float pixelCount[1000] = {0};
