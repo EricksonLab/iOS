@@ -17,8 +17,8 @@
 typedef enum{
     ELCameraMonitorTorchModeOn = YES,
     ELCameraMonitorTorchModeOff = NO,
-
 }ELCameraMonitorTorchMode;
+
 typedef enum {
     FRONT = 0,
     BACK = 1,

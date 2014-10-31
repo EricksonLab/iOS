@@ -10,6 +10,7 @@
 		2446E6791A01A78700B24D5F /* ELImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2446E6781A01A78600B24D5F /* ELImage.m */; };
 		2447355419E3195A003E3954 /* ELTestVideoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447355319E3195A003E3954 /* ELTestVideoPreview.m */; };
 		2447355719E45621003E3954 /* ELMeasureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447355619E45621003E3954 /* ELMeasureController.m */; };
+		E91521711A0415B000FC9302 /* ELGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91521701A0415B000FC9302 /* ELGraphView.m */; };
 		E95B075D1A02DF1E00D89D71 /* ELImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B075C1A02DF1E00D89D71 /* ELImageProcessor.m */; };
 		E95B075E1A02EA8B00D89D71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E976503019DDB21F00BBB152 /* Main.storyboard */; };
 		E95B075F1A02EAB100D89D71 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E976503519DDB21F00BBB152 /* LaunchScreen.xib */; };
@@ -38,6 +39,8 @@
 		2447355319E3195A003E3954 /* ELTestVideoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELTestVideoPreview.m; sourceTree = "<group>"; };
 		2447355519E45621003E3954 /* ELMeasureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMeasureController.h; sourceTree = "<group>"; };
 		2447355619E45621003E3954 /* ELMeasureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMeasureController.m; sourceTree = "<group>"; };
+		E915216F1A0415B000FC9302 /* ELGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELGraphView.h; sourceTree = "<group>"; };
+		E91521701A0415B000FC9302 /* ELGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELGraphView.m; sourceTree = "<group>"; };
 		E95B075B1A02DF1E00D89D71 /* ELImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELImageProcessor.h; sourceTree = "<group>"; };
 		E95B075C1A02DF1E00D89D71 /* ELImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELImageProcessor.m; sourceTree = "<group>"; };
 		E973CF4019DEFE6800AF166C /* ELCameraMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCameraMonitor.h; sourceTree = "<group>"; };
@@ -111,6 +114,15 @@
 			name = TestVideoPreview;
 			sourceTree = "<group>";
 		};
+		E915216E1A04158E00FC9302 /* ELGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				E915216F1A0415B000FC9302 /* ELGraphView.h */,
+				E91521701A0415B000FC9302 /* ELGraphView.m */,
+			);
+			name = ELGraphView;
+			sourceTree = "<group>";
+		};
 		E95B075A1A02DF0900D89D71 /* ImageProcessor */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +135,7 @@
 		E973CF3F19DEFE3100AF166C /* nutriPhoneLibs */ = {
 			isa = PBXGroup;
 			children = (
+				E915216E1A04158E00FC9302 /* ELGraphView */,
 				E95B075A1A02DF0900D89D71 /* ImageProcessor */,
 				2446E6761A01A73400B24D5F /* ObjectClasses */,
 				2447351F19E2E260003E3954 /* TestVideoPreview */,
@@ -294,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E976502F19DDB21F00BBB152 /* ViewController.m in Sources */,
+				E91521711A0415B000FC9302 /* ELGraphView.m in Sources */,
 				E95B075D1A02DF1E00D89D71 /* ELImageProcessor.m in Sources */,
 				E976502C19DDB21F00BBB152 /* AppDelegate.m in Sources */,
 				2446E6791A01A78700B24D5F /* ELImage.m in Sources */,

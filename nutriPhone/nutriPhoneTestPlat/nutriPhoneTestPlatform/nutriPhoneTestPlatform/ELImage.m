@@ -94,6 +94,10 @@
 
 
 -(ELColor) colorAtX:(uint)x Y:(uint)y{
+    if (x<1 || x>width || y<1 || y>height) {
+        NSLog(@"Out of bound. Image width %zu height %zu, input x %d, y %d",width,height,x,y);
+        return [self ELColorBlack];
+    }
     uint n = x-1 + (y-1)*width;
     ELColor color = imageBuffer[n];
     return color;
@@ -101,7 +105,17 @@
 
 -(void) setColorAtX:(uint)x Y:(uint)y Color:(ELColor)color{
     uint n = x-1 + (y-1)*width;
+    if (x<1 || x>width || y<1 || y>height) {
+        NSLog(@"Out of bound. Image width %zu height %zu, input x %d, y %d",width,height,x,y);
+        return;
+    }
     imageBuffer[n] = color;
+}
+
+-(ELColor)ELColorBlack{
+    ELColor black;
+    black.a=255;
+    return black;
 }
 
 @end

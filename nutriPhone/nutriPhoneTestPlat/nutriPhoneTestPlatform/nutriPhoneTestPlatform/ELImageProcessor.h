@@ -15,4 +15,6 @@
                  AtTop:(uint)top Left:(uint)left
                 Bottom:(uint)bottom Rightt:(uint)right;
 
++(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias;
+
 @end

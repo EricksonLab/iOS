@@ -34,15 +34,15 @@ int minValue(int r, int g, int b){
     return min;
 }
 
-int hueFromRGB(int r, int g, int b){
+float hueFromRGB(int r, int g, int b){
     int max = maxValue(r, g, b);
     int min = minValue(r, g, b);
     float dif = max - min;
     if (dif==0) return 0;
-    else if (max == r && g>=b) return (int)roundf(60*(g-b)/dif);
-    else if (max == r && g<b) return (int)roundf(60*(g-b)/dif+360);
-    else if (max == g) return (int)roundf(60*(b-r)/dif+120);
-    else return (int)roundf(60*(r-g)/dif+240);
+    else if (max == r && g>=b) return 60.0*(g-b)/dif;
+    else if (max == r && g<b) return 60.0*(g-b)/dif+360;
+    else if (max == g) return 60*(b-r)/dif+120;
+    else return 60*(r-g)/dif+240;
 }
 
 float satFromRGB(int r, int g, int b){
@@ -64,6 +64,7 @@ float ligFromRGB(int r, int g, int b){
                  Bottom:(uint)bottom Rightt:(uint)right{
     if (top<=0 || top>sourceImage.height || left<=0 || left>sourceImage.width || bottom<=0 || bottom>sourceImage.height || right<=0 || right>sourceImage.width || left>right || bottom<top) {
         NSLog(@"Error clipping image: input arguments error");
+    //    NSLog(@"left:%d right:%d top:%d bottom:%d AND width:%zu height:%zu",left,right,top,bottom,sourceImage.width,sourceImage.height);
         return nil;
     }
     size_t newWidth = right-left+1;
@@ -72,13 +73,32 @@ float ligFromRGB(int r, int g, int b){
     for (int i=top; i<=bottom; i++)
         for (int j=left; j<right; j++) {
             ELColor color = [sourceImage colorAtX:j Y:i];
-            [newImage setColorAtX:j-bottom+1 Y:i-top+1 Color:color];
+            [newImage setColorAtX:j-left+1 Y:i-top+1 Color:color];
         }
     return newImage;
 }
 
 #pragma mark - Accumulates
 
++(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias{
+    float accHue;
+    NSMutableArray* tempArray = [NSMutableArray array];
+    for (int i = 1; i<=sourceImage.width; i++){
+        accHue = 0;
+        for (int j = 1; j<sourceImage.height; j++)
+        {
+            ELColor color = [sourceImage colorAtX:i Y:j];
+            float hue = hueFromRGB(color.r, color.g, color.b)+bias;
+            if (hue<0)
+                hue = hue + 360;
+            else if (hue>360)
+                hue = hue - 360;
+            accHue = accHue + hue;
+        }
+        [tempArray addObject:[NSNumber numberWithFloat:accHue]];
+    }
+    return tempArray;
+}
 
 
 

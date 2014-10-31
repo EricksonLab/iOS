@@ -24,7 +24,7 @@
 
 - (id) initTestView
 {
-    CGRect previewRect = CGRectMake(180, 30, 120, 90);
+    CGRect previewRect = CGRectMake(10, 20, 144, 192);
     return [self initWithFrame:previewRect];
 }
 

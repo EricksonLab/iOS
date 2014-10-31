@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ELTestVideoPreview.h"
 #import "ELImageProcessor.h"
+#import "ELGraphView.h"
 
 
 @interface ViewController : UIViewController {
@@ -18,6 +19,7 @@
 
 @property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
 @property (strong, nonatomic) ELCameraMonitor* cameraMonitor;
+@property (strong, nonatomic) ELGraphView* graphView;
 
 - (IBAction)start:(UIButton *)sender;
 - (IBAction)stop:(UIButton *)sender;

@@ -10,12 +10,6 @@
 
 #define ELCameraMonitorTorchOn YES;
 
-typedef struct {
-    int hue;
-    float sat,lig;
-    BOOL valid;
-}HSLPixel;
-
 @implementation ELCameraMonitor
 
 @synthesize cameraType, session, videoConnection, videoDataOutput, captureDevice;

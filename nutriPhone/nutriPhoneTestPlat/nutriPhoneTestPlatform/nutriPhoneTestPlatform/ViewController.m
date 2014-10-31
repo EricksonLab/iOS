@@ -20,7 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [_currentImageView setContentMode:UIViewContentModeScaleAspectFit];
-    
+    _graphView = [[ELGraphView alloc] initDefault];
+    [_graphView setBackgroundColor:[UIColor colorWithRed:20 green:20 blue:0 alpha:0.1]];
+    [self.view addSubview:_graphView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,9 +32,16 @@
 
 -(void) measureOnce {
     [_cameraMonitor restoreSettings];
-    UIImage *currentImage = [self.cameraMonitor getCurrentImage];
-    if (!currentImage) NSLog(@"No Image");
-    else _currentImageView.image = currentImage;
+    UIImage *currentImage = [_cameraMonitor getCurrentImage];
+    ELImage *currentELImage = [_cameraMonitor getCurrentELImage];
+    if (!currentImage || !currentELImage) NSLog(@"No Image");
+    else {
+        _currentImageView.image = currentImage;
+        ELImage* effectiveImage = [ELImageProcessor clipELImage:currentELImage AtTop:51 Left:1 Bottom:94 Rightt:192];
+        NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
+        [_graphView updateInternalDataY:dataToPlot];
+    }
+    [_graphView setNeedsDisplay];
 }
 
 
