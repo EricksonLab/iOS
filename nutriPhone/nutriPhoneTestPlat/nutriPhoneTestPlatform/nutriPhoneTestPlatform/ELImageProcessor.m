@@ -58,6 +58,14 @@ float ligFromRGB(int r, int g, int b){
     return 0.5*(maxValue(r, g, b) + minValue(r, g, b))/255;
 }
 
++(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
+    ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
+    NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
+    NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:20]];
+    NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
+    return sumUpData;
+}
+
 #pragma mark - Image transform
 +(ELImage*)clipELImage:(ELImage*)sourceImage
                  AtTop:(uint)top Left:(uint)left
@@ -78,11 +86,14 @@ float ligFromRGB(int r, int g, int b){
     return newImage;
 }
 
+
+
+
 #pragma mark - Accumulates
 
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias{
     float accHue;
-    NSMutableArray* tempArray = [NSMutableArray array];
+    NSMutableArray* sourceData = [NSMutableArray array];
     for (int i = 1; i<=sourceImage.width; i++){
         accHue = 0;
         for (int j = 1; j<sourceImage.height; j++)
@@ -95,19 +106,107 @@ float ligFromRGB(int r, int g, int b){
                 hue = hue - 360;
             accHue = accHue + hue;
         }
-        [tempArray addObject:[NSNumber numberWithFloat:accHue]];
+        [sourceData addObject:[NSNumber numberWithFloat:accHue]];
     }
-    return tempArray;
+    
+    return sourceData;
 }
 
 
 
 #pragma mark - Mophology 1D
 
++(NSArray*)morphologyErosion1D:(NSArray*)sourceData StructureElementSize:(int)size{
+    if (size<=0 || size>=[sourceData count]) {
+        NSLog(@"Structure size error");
+        return sourceData;
+    }
+    NSMutableArray* newData = [NSMutableArray arrayWithArray:sourceData];
+    for (int i = 0; i<[sourceData count]; i++){
+        int elementStart = i - size/2;
+        if (elementStart < 0) elementStart = 0;
+        if (elementStart + size >=[sourceData count]) size = [sourceData count]-elementStart-1;
+        NSRange elementRange;
+        elementRange.location = elementStart;
+        elementRange.length = size;
+        float minValue = [self minValueInArray:[sourceData subarrayWithRange:elementRange]];
+        NSNumber* newValue = [NSNumber numberWithFloat:minValue];
+        [newData replaceObjectAtIndex:i withObject:newValue];
+    }
+    return newData;
+}
 
+
++(NSArray*)morphologyDilation1D:(NSArray*)sourceData StructureElementSize:(int)size{
+    if (size<=0 || size>=[sourceData count]) {
+        NSLog(@"Structure size error");
+        return sourceData;
+    }
+    NSMutableArray* newData = [NSMutableArray arrayWithArray:sourceData];
+    for (int i = 0; i<[sourceData count]; i++){
+        int elementStart = i - size/2;
+        if (elementStart < 0) elementStart = 0;
+        if (elementStart + size >=[sourceData count]) size = [sourceData count]-elementStart-1;
+        NSRange elementRange;
+        elementRange.location = elementStart;
+        elementRange.length = size;
+        float maxValue = [self maxValueInArray:[sourceData subarrayWithRange:elementRange]];
+        NSNumber* newValue = [NSNumber numberWithFloat:maxValue];
+        [newData addObject:newValue];
+    }
+    return newData;
+}
+
++(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size{
+    return [self morphologyDilation1D:[self morphologyErosion1D:sourceData StructureElementSize:size] StructureElementSize:size];
+}
++(NSArray*)morphologyClose1D:(NSArray*)sourceData StructureElementSize:(int)size{
+    return [self morphologyErosion1D:[self morphologyDilation1D:sourceData StructureElementSize:size] StructureElementSize:size];
+}
 
 #pragma mark - Mophology 2D
 
 
+#pragma mark - data manipulation
+
++(float) maxValueInArray:(NSArray*)array {
+    NSNumber* val = [array objectAtIndex:0];
+    float max = val.floatValue;
+    for (int i = 1; i<[array count];i++) {
+        val = [array objectAtIndex:i];
+        if (max<val.floatValue) max = val.floatValue;
+    }
+    return max;
+}
+
+
++(float) minValueInArray:(NSArray*)array {
+    NSNumber* val = [array objectAtIndex:0];
+    float min = val.floatValue;
+    for (int i = 1; i<[array count];i++) {
+        val = [array objectAtIndex:i];
+        if (min>val.floatValue) min = val.floatValue;
+    }
+    return min;
+}
+
++(NSArray*) extractBackgroundData:(NSArray*)backgroundData FromSourceData:(NSArray*)sourceData {
+    if ([backgroundData count]!=[sourceData count]) {
+        NSLog(@"Background/source data not compatible");
+        return sourceData;
+    }
+    if ([sourceData count]==0){
+        NSLog(@"Source data empty");
+        return sourceData;
+    }
+    NSMutableArray* newData = [NSMutableArray arrayWithCapacity:[sourceData count]];
+    for (int i=0;i<[sourceData count];i++) {
+        NSNumber* sourceValue = [sourceData objectAtIndex:i];
+        NSNumber* backgroundValue = [backgroundData objectAtIndex:i];
+        NSNumber* newValue = [NSNumber numberWithFloat:sourceValue.floatValue-backgroundValue.floatValue];
+        [newData replaceObjectAtIndex:i withObject:newValue];
+    }
+    return newData;
+}
 
 @end

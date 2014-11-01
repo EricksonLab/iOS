@@ -19,7 +19,7 @@
 */
 #pragma mark - Initialize methods
 - (id)initDefault{
-    CGRect frame = CGRectMake(10, 260, 300, 300);
+    CGRect frame = CGRectMake(10, 260, 300, 240);
     return [self initWithFrame:frame];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -113,19 +113,21 @@
         [[UIColor redColor] setStroke];
         if (scaleAutoX) {
             visionLeft = 0.0;
-            visionRight = [internalDataValueY count] - 1.0;
-            visionBottom = [self minValueInArray:internalDataValueY];
-            visionTop = [self maxValueInArray:internalDataValueY];
+            visionRight = [internalDataValueY count]-1.0;
+            int tempVisionBottom = [self minValueInArray:internalDataValueY];
+            int tempVisionTop = [self maxValueInArray:internalDataValueY];
+            visionTop = tempVisionTop *1.1 - tempVisionBottom*0.1;
+            visionBottom = tempVisionBottom *1.1 - tempVisionTop*0.1;
         //    NSLog(@"vison left:%f,right:%f,bottom:%f,top:%f",visionLeft,visionRight,visionBottom,visionTop);
         }
-        for (int i=visionLeft; i<visionRight; i++) {
+        for (int i=visionLeft; i<visionRight-1; i++) {
             float x1 = (float)viewWidth*i/(visionRight-visionLeft);
             float x2 = (float)viewWidth*(i+1)/(visionRight-visionLeft);
-            NSNumber* number1 = [internalDataValueX objectAtIndex:i];
-            float y1 = (float)viewHeight*(1-(number1.floatValue-visionBottom))/(visionTop-visionBottom);
-            NSNumber* number2 = [internalDataValueX objectAtIndex:(i+1)];
-            float y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom))/(visionTop-visionBottom);
-         //   NSLog(@"Number1:%f Number2,%f",number1.floatValue,number2.floatValue);
+            NSNumber* number1 = [internalDataValueY objectAtIndex:i];
+            float y1 = (float)viewHeight*(1-(number1.floatValue-visionBottom)/(visionTop-visionBottom));
+            NSNumber* number2 = [internalDataValueY objectAtIndex:(i+1)];
+            float y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom)/(visionTop-visionBottom));
+         //   NSLog(@"y1:%f y2,%f",y1,y2);
             CGContextMoveToPoint(context, x1, y1);
             CGContextAddLineToPoint(context, x2, y2);
         }

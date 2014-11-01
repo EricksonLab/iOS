@@ -16,5 +16,9 @@
                 Bottom:(uint)bottom Rightt:(uint)right;
 
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias;
-
++(NSArray*)morphologyErosion1D:(NSArray*)sourceData StructureElementSize:(int)size;
++(NSArray*)morphologyDilation1D:(NSArray*)sourceData StructureElementSize:(int)size;
++(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size;
++(NSArray*)morphologyClose1D:(NSArray*)sourceData StructureElementSize:(int)size;
++(NSArray*) getPregResultTrend:(ELImage*)sourceImage;
 @end

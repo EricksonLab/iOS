@@ -37,8 +37,7 @@
     if (!currentImage || !currentELImage) NSLog(@"No Image");
     else {
         _currentImageView.image = currentImage;
-        ELImage* effectiveImage = [ELImageProcessor clipELImage:currentELImage AtTop:51 Left:1 Bottom:94 Rightt:192];
-        NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
+        NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor getPregResultTrend:currentELImage]];
         [_graphView updateInternalDataY:dataToPlot];
     }
     [_graphView setNeedsDisplay];
