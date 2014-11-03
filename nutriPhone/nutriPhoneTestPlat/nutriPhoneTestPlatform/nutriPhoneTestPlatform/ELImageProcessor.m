@@ -61,7 +61,7 @@ float ligFromRGB(int r, int g, int b){
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
     ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
     NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
-    NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:20]];
+    NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:30]];
     NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
     return dataToPlot;
 }
@@ -94,7 +94,7 @@ float ligFromRGB(int r, int g, int b){
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias{
     float accHue;
     NSMutableArray* sourceData = [NSMutableArray array];
-    for (int i = 1; i<sourceImage.width; i++){
+    for (int i = 1; i<=sourceImage.width; i++){
         accHue = 0;
         for (int j = 1; j<=sourceImage.height; j++)
         {
@@ -108,7 +108,7 @@ float ligFromRGB(int r, int g, int b){
         }
         [sourceData addObject:[NSNumber numberWithFloat:accHue]];
     }
-    NSLog(@"In sum up, last value %@",[sourceData lastObject]);
+ //   NSLog(@"In sum up, last value %@",[sourceData lastObject]);
     return sourceData;
 }
 

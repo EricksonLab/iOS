@@ -19,7 +19,7 @@
 */
 #pragma mark - Initialize methods
 - (id)initDefault{
-    CGRect frame = CGRectMake(10, 260, 300, 240);
+    CGRect frame = CGRectMake(10, 260, 300, 200);
     return [self initWithFrame:frame];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -119,10 +119,8 @@
             int tempVisionTop = [self maxValueInArray:internalDataValueY];
             visionTop = tempVisionTop *1.1 - tempVisionBottom*0.1;
             visionBottom = tempVisionBottom *1.1 - tempVisionTop*0.1;
-            NSLog(@"vison tempTop:%d,top:%f,tempBottom:%d,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
+        //    NSLog(@"vison tempTop:%d,top:%f,tempBottom:%d,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
         }
-        NSNumber * num = [internalDataValueY objectAtIndex:(int)visionRight];
-        NSLog(@"%f",num.floatValue);
         for (int i=(int)visionLeft; i<(int)visionRight; i++) {
             float x1 = (float)viewWidth*i/(visionRight-visionLeft);
             float x2 = (float)viewWidth*(i+1)/(visionRight-visionLeft);
