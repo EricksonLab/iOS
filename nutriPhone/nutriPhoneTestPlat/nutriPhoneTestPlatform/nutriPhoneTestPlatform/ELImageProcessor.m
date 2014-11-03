@@ -59,7 +59,7 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
-    ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:190];
+    ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
     NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
     NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:20]];
     NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
@@ -79,7 +79,7 @@ float ligFromRGB(int r, int g, int b){
     size_t newHeight = bottom-top+1;
     ELImage* newImage = [[ELImage alloc] initWithWidth:newWidth Height:newHeight];
     for (int i=top; i<=bottom; i++)
-        for (int j=left; j<right; j++) {
+        for (int j=left; j<=right; j++) {
             ELColor color = [sourceImage colorAtX:j Y:i];
             [newImage setColorAtX:j-left+1 Y:i-top+1 Color:color];
         }
@@ -96,7 +96,7 @@ float ligFromRGB(int r, int g, int b){
     NSMutableArray* sourceData = [NSMutableArray array];
     for (int i = 1; i<sourceImage.width; i++){
         accHue = 0;
-        for (int j = 1; j<sourceImage.height; j++)
+        for (int j = 1; j<=sourceImage.height; j++)
         {
             ELColor color = [sourceImage colorAtX:i Y:j];
             float hue = hueFromRGB(color.r, color.g, color.b)+bias;
