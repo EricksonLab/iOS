@@ -59,11 +59,11 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
-    ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
+    ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:190];
     NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
     NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:20]];
     NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
-    return sumUpData;
+    return dataToPlot;
 }
 
 #pragma mark - Image transform
@@ -94,7 +94,7 @@ float ligFromRGB(int r, int g, int b){
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias{
     float accHue;
     NSMutableArray* sourceData = [NSMutableArray array];
-    for (int i = 1; i<=sourceImage.width; i++){
+    for (int i = 1; i<sourceImage.width; i++){
         accHue = 0;
         for (int j = 1; j<sourceImage.height; j++)
         {
@@ -108,7 +108,7 @@ float ligFromRGB(int r, int g, int b){
         }
         [sourceData addObject:[NSNumber numberWithFloat:accHue]];
     }
-    
+    NSLog(@"In sum up, last value %@",[sourceData lastObject]);
     return sourceData;
 }
 
@@ -152,7 +152,7 @@ float ligFromRGB(int r, int g, int b){
         elementRange.length = size;
         float maxValue = [self maxValueInArray:[sourceData subarrayWithRange:elementRange]];
         NSNumber* newValue = [NSNumber numberWithFloat:maxValue];
-        [newData addObject:newValue];
+        [newData replaceObjectAtIndex:i withObject:newValue];
     }
     return newData;
 }
@@ -192,7 +192,7 @@ float ligFromRGB(int r, int g, int b){
 
 +(NSArray*) extractBackgroundData:(NSArray*)backgroundData FromSourceData:(NSArray*)sourceData {
     if ([backgroundData count]!=[sourceData count]) {
-        NSLog(@"Background/source data not compatible");
+        NSLog(@"Background %d/source %d data not compatible",[backgroundData count],[sourceData count]);
         return sourceData;
     }
     if ([sourceData count]==0){
@@ -202,9 +202,11 @@ float ligFromRGB(int r, int g, int b){
     NSMutableArray* newData = [NSMutableArray arrayWithCapacity:[sourceData count]];
     for (int i=0;i<[sourceData count];i++) {
         NSNumber* sourceValue = [sourceData objectAtIndex:i];
+    //    NSLog(@"Source value %f",sourceValue.floatValue);
         NSNumber* backgroundValue = [backgroundData objectAtIndex:i];
+    //    NSLog(@"Background value %f",backgroundValue.floatValue);
         NSNumber* newValue = [NSNumber numberWithFloat:sourceValue.floatValue-backgroundValue.floatValue];
-        [newData replaceObjectAtIndex:i withObject:newValue];
+        [newData addObject:newValue];
     }
     return newData;
 }

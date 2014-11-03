@@ -32,6 +32,7 @@
         // Get the base address of the pixel buffer
         void *baseAddress = CVPixelBufferGetBaseAddress(imageBufferRef);
         UInt8* pointer = (UInt8*)baseAddress;
+   //     NSLog(@"Sizeof Buffer: %lu, width %zu height %zu",sizeof(imageBufferRef),width,height);
         imageBuffer=(ELColor *)malloc(sizeof(ELColor)*width*height);
         for (int i=0;i<width*height;i++) {
             imageBuffer[i].r = *pointer;
@@ -77,8 +78,6 @@
 }
 
 -(id)initWithELColorBufferRef:(ELColor*)colorBufferRef Width:(size_t)imgWidth Height:(size_t)imgHeight{
-    colorBufferRef[9999] = colorBufferRef[0];
-    
     self = [super init];
     if (self) {
         width = imgWidth;
@@ -117,5 +116,9 @@
     black.a=255;
     return black;
 }
+
+#pragma mark - Private methods
+
+
 
 @end

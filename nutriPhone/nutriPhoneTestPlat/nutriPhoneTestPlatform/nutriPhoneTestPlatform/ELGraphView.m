@@ -111,6 +111,7 @@
     else if (!internalDataValueX || [internalDataValueX count]==0) {
         CGContextSetLineWidth(context, 3);
         [[UIColor redColor] setStroke];
+        
         if (scaleAutoX) {
             visionLeft = 0.0;
             visionRight = [internalDataValueY count]-1.0;
@@ -118,9 +119,11 @@
             int tempVisionTop = [self maxValueInArray:internalDataValueY];
             visionTop = tempVisionTop *1.1 - tempVisionBottom*0.1;
             visionBottom = tempVisionBottom *1.1 - tempVisionTop*0.1;
-        //    NSLog(@"vison left:%f,right:%f,bottom:%f,top:%f",visionLeft,visionRight,visionBottom,visionTop);
+            NSLog(@"vison tempTop:%d,top:%f,tempBottom:%d,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
         }
-        for (int i=visionLeft; i<visionRight-1; i++) {
+        NSNumber * num = [internalDataValueY objectAtIndex:(int)visionRight];
+        NSLog(@"%f",num.floatValue);
+        for (int i=(int)visionLeft; i<(int)visionRight; i++) {
             float x1 = (float)viewWidth*i/(visionRight-visionLeft);
             float x2 = (float)viewWidth*(i+1)/(visionRight-visionLeft);
             NSNumber* number1 = [internalDataValueY objectAtIndex:i];
