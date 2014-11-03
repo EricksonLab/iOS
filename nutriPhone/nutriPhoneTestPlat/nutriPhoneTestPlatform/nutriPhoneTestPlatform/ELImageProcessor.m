@@ -89,7 +89,7 @@ float ligFromRGB(int r, int g, int b){
 
 
 
-#pragma mark - Accumulates
+#pragma mark - Data process
 
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias{
     float accHue;
@@ -110,6 +110,24 @@ float ligFromRGB(int r, int g, int b){
     }
  //   NSLog(@"In sum up, last value %@",[sourceData lastObject]);
     return sourceData;
+}
+
++(ELTestResult) getPregResultFromData:(NSArray*)sourceData {
+    NSRange firstHalf;
+    firstHalf.location = 0;
+    firstHalf.length = [sourceData count]/2;
+    NSRange secondHalf;
+    secondHalf.location = [sourceData count]/2+1;
+    secondHalf.length = [sourceData count] - secondHalf.location;
+    NSArray* firstHalfData = [sourceData subarrayWithRange:firstHalf];
+    NSArray* secondHalfData = [sourceData subarrayWithRange:secondHalf];
+    NSNumber* firstHalfPeakIntegral = [self integralPeakIn:firstHalfData];
+    NSNumber* secondHalfPeakIntergral = [self integralPeakIn:secondHalfData];
+    if (firstHalfPeakIntegral.floatValue == 0.0 || firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue)
+        return ELTestResultUncertain;
+    else if (firstHalfPeakIntegral.floatValue > secondHalfPeakIntergral.floatValue * 1.5 )
+        return ELTestResultNegative;
+    else return ELTestResultPositive;
 }
 
 
@@ -160,6 +178,7 @@ float ligFromRGB(int r, int g, int b){
 +(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size{
     return [self morphologyDilation1D:[self morphologyErosion1D:sourceData StructureElementSize:size] StructureElementSize:size];
 }
+
 +(NSArray*)morphologyClose1D:(NSArray*)sourceData StructureElementSize:(int)size{
     return [self morphologyErosion1D:[self morphologyDilation1D:sourceData StructureElementSize:size] StructureElementSize:size];
 }
@@ -190,6 +209,34 @@ float ligFromRGB(int r, int g, int b){
     return min;
 }
 
++(int) indexOfMaxValueInArray:(NSArray*)array {
+    NSNumber* val = [array objectAtIndex:0];
+    float max = val.floatValue;
+    int index = 0;
+    for (int i = 1; i<[array count];i++) {
+        val = [array objectAtIndex:i];
+        if (max<val.floatValue) {
+            max = val.floatValue;
+            index = i;
+        }
+    }
+    return index;
+}
+
+
++(int) indexOfMinValueInArray:(NSArray*)array {
+    NSNumber* val = [array objectAtIndex:0];
+    float min = val.floatValue;
+    int index = 0;
+    for (int i = 1; i<[array count];i++) {
+        val = [array objectAtIndex:i];
+        if (min<val.floatValue) {
+            min = val.floatValue;
+            index = i;
+        }    }
+    return index;
+}
+
 +(NSArray*) extractBackgroundData:(NSArray*)backgroundData FromSourceData:(NSArray*)sourceData {
     if ([backgroundData count]!=[sourceData count]) {
         NSLog(@"Background %d/source %d data not compatible",[backgroundData count],[sourceData count]);
@@ -209,6 +256,56 @@ float ligFromRGB(int r, int g, int b){
         [newData addObject:newValue];
     }
     return newData;
+}
+
++(NSNumber*) integralPeakIn:(NSArray*)array {
+    float mean = [[self meanOf:array] floatValue];
+    int peakMaxIndex = [self indexOfMaxValueInArray:array];
+    if ([[array objectAtIndex:peakMaxIndex] floatValue]<mean+[[self standardDeviationOf:array] floatValue]*2) {
+        NSLog(@"Found no peak in array");
+        return [NSNumber numberWithFloat:0.0];
+    }
+    float integral = [[array objectAtIndex:peakMaxIndex] floatValue];
+    for (int i = peakMaxIndex+1;i<[array count];i++) {
+        float value = [[array objectAtIndex:i] floatValue];
+        if (value>mean )
+            integral += value;
+    }
+    for (int i = peakMaxIndex-1;i>=0;i--) {
+        float value = [[array objectAtIndex:i] floatValue];
+        if (value>mean)
+            integral += value;
+    }
+    return [NSNumber numberWithFloat:integral];
+}
+
++(NSNumber *)meanOf:(NSArray *)array
+{
+    float runningTotal = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        runningTotal += [number floatValue];
+    }
+    
+    return [NSNumber numberWithFloat:(runningTotal / [array count])];
+}
+
++(NSNumber *)standardDeviationOf:(NSArray *)array
+{
+    if(![array count]) return nil;
+    
+    float mean = [[self meanOf:array] floatValue];
+    float sumOfSquaredDifferences = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        float valueOfNumber = [number floatValue];
+        float difference = valueOfNumber - mean;
+        sumOfSquaredDifferences += difference * difference;
+    }
+    
+    return [NSNumber numberWithFloat:sqrt(sumOfSquaredDifferences / [array count])];
 }
 
 @end

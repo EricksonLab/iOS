@@ -20,11 +20,12 @@
 @property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
 @property (strong, nonatomic) ELCameraMonitor* cameraMonitor;
 @property (strong, nonatomic) ELGraphView* graphView;
+@property (strong, nonatomic) IBOutlet UIButton *controlButton;
 
 - (IBAction)start:(UIButton *)sender;
-- (IBAction)stop:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIImageView *currentImageView;
+@property (weak, nonatomic) IBOutlet UILabel *testResultLabel;
 
 @end
 

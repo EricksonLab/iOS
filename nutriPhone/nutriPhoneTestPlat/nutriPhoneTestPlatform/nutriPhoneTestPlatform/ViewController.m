@@ -39,6 +39,13 @@
         _currentImageView.image = currentImage;
         NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor getPregResultTrend:currentELImage]];
         [_graphView updateInternalDataY:dataToPlot];
+        ELTestResult result = [ELImageProcessor getPregResultFromData:dataToPlot];
+        if (result == ELTestResultPositive)
+            _testResultLabel.text = @"Positive";
+        else if (result == ELTestResultNegative)
+            _testResultLabel.text = @"Negative";
+        else _testResultLabel.text = @"Uncertain";
+
     }
     [_graphView setNeedsDisplay];
 }
@@ -46,6 +53,7 @@
 
 - (IBAction)start:(UIButton *)sender {
     if (!self.cameraMonitor) {
+        
         _cameraMonitor = [[ELCameraMonitor alloc] init];
         [_cameraMonitor startCamera];
         if (_testVideoPreview) {
@@ -59,17 +67,22 @@
         [_testVideoPreview setContentMode:UIViewContentModeCenter];
         measureController =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureOnce) userInfo:nil repeats:YES];
         [measureController fire];
-        
+        [_controlButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        _testResultLabel.text = @"Analyzing...";
+    } else {
+        [measureController invalidate];
+        measureController = nil;
+        if (_cameraMonitor) {
+            [_cameraMonitor stopCamera];
+            _cameraMonitor = nil;
+            [_controlButton setTitle:@"Start" forState:UIControlStateNormal];
+            _testResultLabel.text = @"Ready to Test";
+        }
     }
 }
 
 - (IBAction)stop:(UIButton *)sender {
-    [measureController invalidate];
-    measureController = nil;
-    if (_cameraMonitor) {
-        [_cameraMonitor stopCamera];
-        _cameraMonitor = nil;
-    }
+    
     
 }
 

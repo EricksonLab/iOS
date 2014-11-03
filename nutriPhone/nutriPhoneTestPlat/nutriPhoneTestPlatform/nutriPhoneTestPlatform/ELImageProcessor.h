@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "ELImage.h"
 
+typedef enum{
+    ELTestResultPositive = 1,
+    ELTestResultNegative = 0,
+    ELTestResultUncertain = 3,
+}ELTestResult;
+
 @interface ELImageProcessor : NSObject
 
 +(ELImage*)clipELImage:(ELImage*)sourceImage
@@ -21,4 +27,7 @@
 +(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size;
 +(NSArray*)morphologyClose1D:(NSArray*)sourceData StructureElementSize:(int)size;
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage;
++(ELTestResult) getPregResultFromData:(NSArray*)sourceData;
++(NSNumber *)meanOf:(NSArray *)array;
++(NSNumber *)standardDeviationOf:(NSArray *)array;
 @end
