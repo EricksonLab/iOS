@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E98454991A0A7BCE00D6CCBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454981A0A7BCE00D6CCBC /* main.m */; };
+		E984549C1A0A7BCE00D6CCBC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E984549B1A0A7BCE00D6CCBC /* AppDelegate.m */; };
+		E984549F1A0A7BCE00D6CCBC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E984549E1A0A7BCE00D6CCBC /* ViewController.m */; };
+		E98454A21A0A7BCE00D6CCBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E98454A01A0A7BCE00D6CCBC /* Main.storyboard */; };
+		E98454A41A0A7BCE00D6CCBC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E98454A31A0A7BCE00D6CCBC /* Images.xcassets */; };
+		E98454A71A0A7BCE00D6CCBC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98454A51A0A7BCE00D6CCBC /* LaunchScreen.xib */; };
+		E98454B31A0A7BCF00D6CCBC /* Cholesterol_TestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454B21A0A7BCF00D6CCBC /* Cholesterol_TestTests.m */; };
+		E98454DA1A0A853B00D6CCBC /* ELCameraMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454CF1A0A853B00D6CCBC /* ELCameraMonitor.m */; };
+		E98454DB1A0A853B00D6CCBC /* ELGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454D11A0A853B00D6CCBC /* ELGraphView.m */; };
+		E98454DC1A0A853B00D6CCBC /* ELImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454D31A0A853B00D6CCBC /* ELImage.m */; };
+		E98454DD1A0A853B00D6CCBC /* ELImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454D51A0A853B00D6CCBC /* ELImageProcessor.m */; };
+		E98454DE1A0A853B00D6CCBC /* ELMeasureController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454D71A0A853B00D6CCBC /* ELMeasureController.m */; };
+		E98454DF1A0A853B00D6CCBC /* ELTestVideoPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454D91A0A853B00D6CCBC /* ELTestVideoPreview.m */; };
+		E98454EB1A0A995D00D6CCBC /* icon_origin.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E11A0A995D00D6CCBC /* icon_origin.png */; };
+		E98454EC1A0A995D00D6CCBC /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E21A0A995D00D6CCBC /* Icon-60.png */; };
+		E98454ED1A0A995D00D6CCBC /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E31A0A995D00D6CCBC /* Icon-72.png */; };
+		E98454EE1A0A995D00D6CCBC /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E41A0A995D00D6CCBC /* Icon-72@2x.png */; };
+		E98454EF1A0A995D00D6CCBC /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E51A0A995D00D6CCBC /* Icon-Small-50.png */; };
+		E98454F01A0A995D00D6CCBC /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E61A0A995D00D6CCBC /* Icon-Small-50@2x.png */; };
+		E98454F11A0A995D00D6CCBC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E71A0A995D00D6CCBC /* Icon.png */; };
+		E98454F21A0A995D00D6CCBC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E81A0A995D00D6CCBC /* Icon@2x.png */; };
+		E98454F31A0A995D00D6CCBC /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454E91A0A995D00D6CCBC /* iTunesArtwork.png */; };
+		E98454F41A0A995D00D6CCBC /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E98454EA1A0A995D00D6CCBC /* iTunesArtwork@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E98454AD1A0A7BCF00D6CCBC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E984548B1A0A7BCE00D6CCBC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E98454921A0A7BCE00D6CCBC;
+			remoteInfo = "Cholesterol Test";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E98454931A0A7BCE00D6CCBC /* Cholesterol Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cholesterol Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E98454971A0A7BCE00D6CCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E98454981A0A7BCE00D6CCBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E984549A1A0A7BCE00D6CCBC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E984549B1A0A7BCE00D6CCBC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E984549D1A0A7BCE00D6CCBC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E984549E1A0A7BCE00D6CCBC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E98454A11A0A7BCE00D6CCBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E98454A31A0A7BCE00D6CCBC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E98454A61A0A7BCE00D6CCBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		E98454AC1A0A7BCF00D6CCBC /* Cholesterol TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cholesterol TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E98454B11A0A7BCF00D6CCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E98454B21A0A7BCF00D6CCBC /* Cholesterol_TestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cholesterol_TestTests.m; sourceTree = "<group>"; };
+		E98454CE1A0A853B00D6CCBC /* ELCameraMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCameraMonitor.h; sourceTree = "<group>"; };
+		E98454CF1A0A853B00D6CCBC /* ELCameraMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCameraMonitor.m; sourceTree = "<group>"; };
+		E98454D01A0A853B00D6CCBC /* ELGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELGraphView.h; sourceTree = "<group>"; };
+		E98454D11A0A853B00D6CCBC /* ELGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELGraphView.m; sourceTree = "<group>"; };
+		E98454D21A0A853B00D6CCBC /* ELImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELImage.h; sourceTree = "<group>"; };
+		E98454D31A0A853B00D6CCBC /* ELImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELImage.m; sourceTree = "<group>"; };
+		E98454D41A0A853B00D6CCBC /* ELImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELImageProcessor.h; sourceTree = "<group>"; };
+		E98454D51A0A853B00D6CCBC /* ELImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELImageProcessor.m; sourceTree = "<group>"; };
+		E98454D61A0A853B00D6CCBC /* ELMeasureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMeasureController.h; sourceTree = "<group>"; };
+		E98454D71A0A853B00D6CCBC /* ELMeasureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMeasureController.m; sourceTree = "<group>"; };
+		E98454D81A0A853B00D6CCBC /* ELTestVideoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELTestVideoPreview.h; sourceTree = "<group>"; };
+		E98454D91A0A853B00D6CCBC /* ELTestVideoPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELTestVideoPreview.m; sourceTree = "<group>"; };
+		E98454E11A0A995D00D6CCBC /* icon_origin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_origin.png; path = Icon/icon_origin.png; sourceTree = SOURCE_ROOT; };
+		E98454E21A0A995D00D6CCBC /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "Icon/Icon-60.png"; sourceTree = SOURCE_ROOT; };
+		E98454E31A0A995D00D6CCBC /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Icon/Icon-72.png"; sourceTree = SOURCE_ROOT; };
+		E98454E41A0A995D00D6CCBC /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Icon/Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
+		E98454E51A0A995D00D6CCBC /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Icon/Icon-Small-50.png"; sourceTree = SOURCE_ROOT; };
+		E98454E61A0A995D00D6CCBC /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50@2x.png"; path = "Icon/Icon-Small-50@2x.png"; sourceTree = SOURCE_ROOT; };
+		E98454E71A0A995D00D6CCBC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Icon/Icon.png; sourceTree = SOURCE_ROOT; };
+		E98454E81A0A995D00D6CCBC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icon/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		E98454E91A0A995D00D6CCBC /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork.png; path = Icon/iTunesArtwork.png; sourceTree = SOURCE_ROOT; };
+		E98454EA1A0A995D00D6CCBC /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "Icon/iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E98454901A0A7BCE00D6CCBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E98454A91A0A7BCF00D6CCBC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E984548A1A0A7BCE00D6CCBC = {
+			isa = PBXGroup;
+			children = (
+				E98454951A0A7BCE00D6CCBC /* Cholesterol Test */,
+				E98454AF1A0A7BCF00D6CCBC /* Cholesterol TestTests */,
+				E98454941A0A7BCE00D6CCBC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E98454941A0A7BCE00D6CCBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E98454931A0A7BCE00D6CCBC /* Cholesterol Test.app */,
+				E98454AC1A0A7BCF00D6CCBC /* Cholesterol TestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E98454951A0A7BCE00D6CCBC /* Cholesterol Test */ = {
+			isa = PBXGroup;
+			children = (
+				E98454E01A0A990400D6CCBC /* Icons */,
+				E98454CE1A0A853B00D6CCBC /* ELCameraMonitor.h */,
+				E98454CF1A0A853B00D6CCBC /* ELCameraMonitor.m */,
+				E98454D01A0A853B00D6CCBC /* ELGraphView.h */,
+				E98454D11A0A853B00D6CCBC /* ELGraphView.m */,
+				E98454D21A0A853B00D6CCBC /* ELImage.h */,
+				E98454D31A0A853B00D6CCBC /* ELImage.m */,
+				E98454D41A0A853B00D6CCBC /* ELImageProcessor.h */,
+				E98454D51A0A853B00D6CCBC /* ELImageProcessor.m */,
+				E98454D61A0A853B00D6CCBC /* ELMeasureController.h */,
+				E98454D71A0A853B00D6CCBC /* ELMeasureController.m */,
+				E98454D81A0A853B00D6CCBC /* ELTestVideoPreview.h */,
+				E98454D91A0A853B00D6CCBC /* ELTestVideoPreview.m */,
+				E984549A1A0A7BCE00D6CCBC /* AppDelegate.h */,
+				E984549B1A0A7BCE00D6CCBC /* AppDelegate.m */,
+				E984549D1A0A7BCE00D6CCBC /* ViewController.h */,
+				E984549E1A0A7BCE00D6CCBC /* ViewController.m */,
+				E98454A01A0A7BCE00D6CCBC /* Main.storyboard */,
+				E98454A31A0A7BCE00D6CCBC /* Images.xcassets */,
+				E98454A51A0A7BCE00D6CCBC /* LaunchScreen.xib */,
+				E98454961A0A7BCE00D6CCBC /* Supporting Files */,
+			);
+			path = "Cholesterol Test";
+			sourceTree = "<group>";
+		};
+		E98454961A0A7BCE00D6CCBC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E98454971A0A7BCE00D6CCBC /* Info.plist */,
+				E98454981A0A7BCE00D6CCBC /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E98454AF1A0A7BCF00D6CCBC /* Cholesterol TestTests */ = {
+			isa = PBXGroup;
+			children = (
+				E98454B21A0A7BCF00D6CCBC /* Cholesterol_TestTests.m */,
+				E98454B01A0A7BCF00D6CCBC /* Supporting Files */,
+			);
+			path = "Cholesterol TestTests";
+			sourceTree = "<group>";
+		};
+		E98454B01A0A7BCF00D6CCBC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E98454B11A0A7BCF00D6CCBC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E98454E01A0A990400D6CCBC /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				E98454E11A0A995D00D6CCBC /* icon_origin.png */,
+				E98454E21A0A995D00D6CCBC /* Icon-60.png */,
+				E98454E31A0A995D00D6CCBC /* Icon-72.png */,
+				E98454E41A0A995D00D6CCBC /* Icon-72@2x.png */,
+				E98454E51A0A995D00D6CCBC /* Icon-Small-50.png */,
+				E98454E61A0A995D00D6CCBC /* Icon-Small-50@2x.png */,
+				E98454E71A0A995D00D6CCBC /* Icon.png */,
+				E98454E81A0A995D00D6CCBC /* Icon@2x.png */,
+				E98454E91A0A995D00D6CCBC /* iTunesArtwork.png */,
+				E98454EA1A0A995D00D6CCBC /* iTunesArtwork@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E98454921A0A7BCE00D6CCBC /* Cholesterol Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E98454B61A0A7BCF00D6CCBC /* Build configuration list for PBXNativeTarget "Cholesterol Test" */;
+			buildPhases = (
+				E984548F1A0A7BCE00D6CCBC /* Sources */,
+				E98454901A0A7BCE00D6CCBC /* Frameworks */,
+				E98454911A0A7BCE00D6CCBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cholesterol Test";
+			productName = "Cholesterol Test";
+			productReference = E98454931A0A7BCE00D6CCBC /* Cholesterol Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E98454AB1A0A7BCF00D6CCBC /* Cholesterol TestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E98454B91A0A7BCF00D6CCBC /* Build configuration list for PBXNativeTarget "Cholesterol TestTests" */;
+			buildPhases = (
+				E98454A81A0A7BCF00D6CCBC /* Sources */,
+				E98454A91A0A7BCF00D6CCBC /* Frameworks */,
+				E98454AA1A0A7BCF00D6CCBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E98454AE1A0A7BCF00D6CCBC /* PBXTargetDependency */,
+			);
+			name = "Cholesterol TestTests";
+			productName = "Cholesterol TestTests";
+			productReference = E98454AC1A0A7BCF00D6CCBC /* Cholesterol TestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E984548B1A0A7BCE00D6CCBC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = EricksonLab;
+				TargetAttributes = {
+					E98454921A0A7BCE00D6CCBC = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					E98454AB1A0A7BCF00D6CCBC = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = E98454921A0A7BCE00D6CCBC;
+					};
+				};
+			};
+			buildConfigurationList = E984548E1A0A7BCE00D6CCBC /* Build configuration list for PBXProject "Cholesterol Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E984548A1A0A7BCE00D6CCBC;
+			productRefGroup = E98454941A0A7BCE00D6CCBC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E98454921A0A7BCE00D6CCBC /* Cholesterol Test */,
+				E98454AB1A0A7BCF00D6CCBC /* Cholesterol TestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E98454911A0A7BCE00D6CCBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E98454F01A0A995D00D6CCBC /* Icon-Small-50@2x.png in Resources */,
+				E98454EE1A0A995D00D6CCBC /* Icon-72@2x.png in Resources */,
+				E98454F11A0A995D00D6CCBC /* Icon.png in Resources */,
+				E98454EC1A0A995D00D6CCBC /* Icon-60.png in Resources */,
+				E98454A21A0A7BCE00D6CCBC /* Main.storyboard in Resources */,
+				E98454F21A0A995D00D6CCBC /* Icon@2x.png in Resources */,
+				E98454F31A0A995D00D6CCBC /* iTunesArtwork.png in Resources */,
+				E98454A71A0A7BCE00D6CCBC /* LaunchScreen.xib in Resources */,
+				E98454EB1A0A995D00D6CCBC /* icon_origin.png in Resources */,
+				E98454EF1A0A995D00D6CCBC /* Icon-Small-50.png in Resources */,
+				E98454F41A0A995D00D6CCBC /* iTunesArtwork@2x.png in Resources */,
+				E98454A41A0A7BCE00D6CCBC /* Images.xcassets in Resources */,
+				E98454ED1A0A995D00D6CCBC /* Icon-72.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E98454AA1A0A7BCF00D6CCBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E984548F1A0A7BCE00D6CCBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E98454DF1A0A853B00D6CCBC /* ELTestVideoPreview.m in Sources */,
+				E98454DB1A0A853B00D6CCBC /* ELGraphView.m in Sources */,
+				E984549F1A0A7BCE00D6CCBC /* ViewController.m in Sources */,
+				E984549C1A0A7BCE00D6CCBC /* AppDelegate.m in Sources */,
+				E98454DA1A0A853B00D6CCBC /* ELCameraMonitor.m in Sources */,
+				E98454DD1A0A853B00D6CCBC /* ELImageProcessor.m in Sources */,
+				E98454DC1A0A853B00D6CCBC /* ELImage.m in Sources */,
+				E98454991A0A7BCE00D6CCBC /* main.m in Sources */,
+				E98454DE1A0A853B00D6CCBC /* ELMeasureController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E98454A81A0A7BCF00D6CCBC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E98454B31A0A7BCF00D6CCBC /* Cholesterol_TestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E98454AE1A0A7BCF00D6CCBC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E98454921A0A7BCE00D6CCBC /* Cholesterol Test */;
+			targetProxy = E98454AD1A0A7BCF00D6CCBC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E98454A01A0A7BCE00D6CCBC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E98454A11A0A7BCE00D6CCBC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E98454A51A0A7BCE00D6CCBC /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E98454A61A0A7BCE00D6CCBC /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E98454B41A0A7BCF00D6CCBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E98454B51A0A7BCF00D6CCBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E98454B71A0A7BCF00D6CCBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Cholesterol Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E98454B81A0A7BCF00D6CCBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Cholesterol Test/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E98454BA1A0A7BCF00D6CCBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Cholesterol TestTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cholesterol Test.app/Cholesterol Test";
+			};
+			name = Debug;
+		};
+		E98454BB1A0A7BCF00D6CCBC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Cholesterol TestTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cholesterol Test.app/Cholesterol Test";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E984548E1A0A7BCE00D6CCBC /* Build configuration list for PBXProject "Cholesterol Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E98454B41A0A7BCF00D6CCBC /* Debug */,
+				E98454B51A0A7BCF00D6CCBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E98454B61A0A7BCF00D6CCBC /* Build configuration list for PBXNativeTarget "Cholesterol Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E98454B71A0A7BCF00D6CCBC /* Debug */,
+				E98454B81A0A7BCF00D6CCBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E98454B91A0A7BCF00D6CCBC /* Build configuration list for PBXNativeTarget "Cholesterol TestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E98454BA1A0A7BCF00D6CCBC /* Debug */,
+				E98454BB1A0A7BCF00D6CCBC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E984548B1A0A7BCE00D6CCBC /* Project object */;
+}

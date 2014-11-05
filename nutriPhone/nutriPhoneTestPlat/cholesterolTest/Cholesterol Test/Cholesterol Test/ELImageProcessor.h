@@ -15,6 +15,8 @@ typedef enum{
     ELTestResultUncertain = 3,
 }ELTestResult;
 
+
+
 @interface ELImageProcessor : NSObject
 
 +(ELImage*)clipELImage:(ELImage*)sourceImage
@@ -22,6 +24,8 @@ typedef enum{
                 Bottom:(uint)bottom Rightt:(uint)right;
 
 +(NSArray*)sumUpHueAlongAxisYFrom:(ELImage*)sourceImage Bias:(int)bias;
++(NSArray*)hueStatisticFrom:(ELImage*)sourceImage Bias:(int)bias;
+
 +(NSArray*)morphologyErosion1D:(NSArray*)sourceData StructureElementSize:(int)size;
 +(NSArray*)morphologyDilation1D:(NSArray*)sourceData StructureElementSize:(int)size;
 +(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size;
@@ -30,8 +34,7 @@ typedef enum{
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage;
 +(ELTestResult) getPregResultFromData:(NSArray*)sourceData;
 
-+(NSArray*) getCholResultTrend:(ELImage*)sourceImage;
-+(ELTestResult) getCholResultFromData:(NSArray*)sourceData;
++(NSNumber*) getCholResult:(ELImage*)sourceImage;
 
 +(NSNumber *)meanOf:(NSArray *)array;
 +(NSNumber *)standardDeviationOf:(NSArray *)array;
