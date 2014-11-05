@@ -76,7 +76,7 @@
             [_cameraMonitor stopCamera];
             _cameraMonitor = nil;
             [_controlButton setTitle:@"Start" forState:UIControlStateNormal];
-            _testResultLabel.text = @"Ready to Test";
+            _testResultLabel.text = @"Preg Test Ready";
         }
     }
 }
