@@ -27,6 +27,7 @@ typedef enum {
 @property (nonatomic, assign) UInt64 some;
 
 
+
 - (id)initWithFrame:(CGRect)frame;
 - (id)initDefault;
 - (void)setGraphViewScaleMode:(ELGraphViewScaleMode)graphViewScaleMode;

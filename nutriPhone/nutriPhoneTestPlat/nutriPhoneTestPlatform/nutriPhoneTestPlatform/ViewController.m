@@ -66,11 +66,11 @@
         [_testVideoPreview buildConnectionWithCameraMonitor:_cameraMonitor];
         [_testVideoPreview setContentMode:UIViewContentModeCenter];
         measureController =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureOnce) userInfo:nil repeats:YES];
-        [measureController fire];
+        [measureController setFireDate:[NSDate distantPast]];
         [_controlButton setTitle:@"Cancel" forState:UIControlStateNormal];
         _testResultLabel.text = @"Analyzing...";
     } else {
-        [measureController invalidate];
+        [measureController setFireDate:[NSDate distantFuture]];
         measureController = nil;
         if (_cameraMonitor) {
             [_cameraMonitor stopCamera];

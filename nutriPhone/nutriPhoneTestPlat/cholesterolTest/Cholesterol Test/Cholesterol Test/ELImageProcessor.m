@@ -151,6 +151,7 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSNumber*) getCholResult:(ELImage*)sourceImage{
+//    if (sourceImage) NSLog(@"has image");
     NSArray* hueStat = [NSArray arrayWithArray:[self hueStatisticFrom:sourceImage Bias:0]];
     NSRange range;
     range.location =120;
@@ -164,14 +165,20 @@ float ligFromRGB(int r, int g, int b){
         for (int j = 1; j<=sourceImage.height; j++)
         {
             ELColor color = [sourceImage colorAtX:i Y:j];
-            float sat = satFromRGB(color.r, color.g, color.b);
-            if (sat-120 < mean.floatValue + 2*stadev.floatValue && sat-120 > mean.floatValue - 2*stadev.floatValue) {
+            float hue = hueFromRGB(color.r, color.g, color.b);
+            if (hue-range.location < mean.floatValue + 2*stadev.floatValue && hue - range.location > mean.floatValue - 2*stadev.floatValue) {
+                float sat = satFromRGB(color.r, color.g, color.b);
                 accSat +=sat;
                 numOfEffectivePoints++;
             }
         }
     }
-    return [NSNumber numberWithFloat:accSat/numOfEffectivePoints];
+//    NSLog(@"accSat %f, numOfEffectPoints %d",accSat,numOfEffectivePoints);
+//    NSLog(@"mean %f, stdev %f",mean.floatValue,stadev.floatValue);
+    if (numOfEffectivePoints == 0) return [NSNumber numberWithFloat:-1.0];
+    float S = accSat/numOfEffectivePoints;
+    float finalResult = 0.08*S*S - 4.56*S + 196.84;
+    return [NSNumber numberWithFloat:finalResult];
 }
 
 

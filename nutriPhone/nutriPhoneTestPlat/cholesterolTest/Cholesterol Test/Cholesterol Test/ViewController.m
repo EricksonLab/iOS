@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [_currentImageView setContentMode:UIViewContentModeScaleAspectFit];
+    [_currentImageView setContentMode:UIViewContentModeScaleAspectFill];
     _graphView = [[ELGraphView alloc] initDefault];
     [_graphView setBackgroundColor:[UIColor colorWithRed:20 green:20 blue:0 alpha:0.1]];
     cholResultTrend = [NSMutableArray arrayWithCapacity:10];
@@ -48,8 +48,14 @@
         [_graphView updateInternalDataY:cholResultTrend];
         numOfValidDatas ++;
         if (numOfValidDatas == 10) {
+            NSNumber* finalResult = [self meanOf:cholResultTrend];
             [self stopTest];
-            cholResultTrend = [NSMutableArray arrayWithCapacity:10];
+            UIAlertView*alert = [[UIAlertView alloc]initWithTitle:@"Result"
+                                                          message:[NSString stringWithFormat:@"Blood Cholesterol\n%.2fmg/L",finalResult.floatValue]
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+            [alert show];
         }
     }
     [_graphView setNeedsDisplay];
@@ -65,8 +71,9 @@
 }
 
 - (void)stopTest{
-    [measureController invalidate];
-    measureController = nil;
+    [measureController setFireDate:[NSDate distantFuture]];
+    cholResultTrend = [NSMutableArray arrayWithCapacity:11];
+ //   measureController = nil;
     if (_cameraMonitor) {
         [_cameraMonitor stopCamera];
         _cameraMonitor = nil;
@@ -91,7 +98,7 @@
     [_testVideoPreview buildConnectionWithCameraMonitor:_cameraMonitor];
     [_testVideoPreview setContentMode:UIViewContentModeCenter];
     measureController =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(measureOnce) userInfo:nil repeats:YES];
-    [measureController fire];
+    [measureController setFireDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];
     [_controlButton setTitle:@"Cancel" forState:UIControlStateNormal];
     _testResultLabel.text = @"Analyzing...";
 
@@ -115,5 +122,18 @@
         _testVideoPreview = nil;
     }
 }
+
+-(NSNumber *)meanOf:(NSArray *)array
+{
+    float runningTotal = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        runningTotal += [number floatValue];
+    }
+    
+    return [NSNumber numberWithFloat:(runningTotal / [array count])];
+}
+
 @end
 

@@ -19,7 +19,7 @@
 }
 
 @property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
-@property (strong, nonatomic) ELCameraMonitor* cameraMonitor;
+@property (strong, atomic) ELCameraMonitor* cameraMonitor;
 @property (strong, nonatomic) ELGraphView* graphView;
 @property (strong, nonatomic) IBOutlet UIButton *controlButton;
 

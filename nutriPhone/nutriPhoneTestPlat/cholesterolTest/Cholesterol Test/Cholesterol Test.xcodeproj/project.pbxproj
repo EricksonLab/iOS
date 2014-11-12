@@ -498,6 +498,7 @@
 				E98454B81A0A7BCF00D6CCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E98454B91A0A7BCF00D6CCBC /* Build configuration list for PBXNativeTarget "Cholesterol TestTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +507,7 @@
 				E98454BB1A0A7BCF00D6CCBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

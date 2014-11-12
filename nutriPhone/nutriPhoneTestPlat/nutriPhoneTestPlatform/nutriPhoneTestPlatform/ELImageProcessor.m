@@ -38,7 +38,7 @@ float hueFromRGB(int r, int g, int b){
     int max = maxValue(r, g, b);
     int min = minValue(r, g, b);
     float dif = max - min;
-    if (dif==0) return 0;
+    if (dif==0) return 240;
     else if (max == r && g>=b) return 60.0*(g-b)/dif;
     else if (max == r && g<b) return 60.0*(g-b)/dif+360;
     else if (max == g) return 60*(b-r)/dif+120;
@@ -60,7 +60,7 @@ float ligFromRGB(int r, int g, int b){
 
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
     ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
-    NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
+    NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-50]];
     NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:30]];
     NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
     return dataToPlot;
@@ -123,11 +123,13 @@ float ligFromRGB(int r, int g, int b){
     NSArray* secondHalfData = [sourceData subarrayWithRange:secondHalf];
     NSNumber* firstHalfPeakIntegral = [self integralPeakIn:firstHalfData];
     NSNumber* secondHalfPeakIntergral = [self integralPeakIn:secondHalfData];
+    NSNumber* maxFirstHalf = [NSNumber numberWithFloat:[self maxValueInArray:firstHalfData]];
+    NSNumber* maxSecondHalf = [NSNumber numberWithFloat:[self maxValueInArray:secondHalfData]];
     if (firstHalfPeakIntegral.floatValue == 0.0 || firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue)
         return ELTestResultUncertain;
-    else if (firstHalfPeakIntegral.floatValue > secondHalfPeakIntergral.floatValue * 1.5 )
-        return ELTestResultNegative;
-    else return ELTestResultPositive;
+    else if (firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue * 2 || maxFirstHalf.floatValue<maxSecondHalf.floatValue*1.5)
+        return ELTestResultPositive;
+    else return ELTestResultNegative;
 }
 
 

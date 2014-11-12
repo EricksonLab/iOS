@@ -10,6 +10,7 @@
 
 @implementation ELGraphView
 
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -110,13 +111,14 @@
     }
     else if (!internalDataValueX || [internalDataValueX count]==0) {
         CGContextSetLineWidth(context, 3);
-        [[UIColor blueColor] setStroke];
+        
         
         if (scaleAutoX) {
             visionLeft = 0.0;
             visionRight = [internalDataValueY count]-1.0;
         }
         if (scaleAutoY) {
+            if (internalDataValueY) NSLog(@"Empty internaldata");
             float tempVisionBottom = [self minValueInArray:internalDataValueY];
             float tempVisionTop = [self maxValueInArray:internalDataValueY];
             if (tempVisionBottom == tempVisionTop) {
@@ -125,8 +127,9 @@
             }
             visionTop = tempVisionTop *1.1 - tempVisionBottom*0.1;
             visionBottom = tempVisionBottom *1.1 - tempVisionTop*0.1;
-         //   NSLog(@"vison tempTop:%f,top:%f,tempBottom:%f,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
+        //    NSLog(@"vison tempTop:%f,top:%f,tempBottom:%f,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
         }
+        [[UIColor blueColor] setStroke];
         for (int i=(int)visionLeft; i<(int)visionRight; i++) {
             float x1 = (float)viewWidth*i/(visionRight-visionLeft);
             float x2 = (float)viewWidth*(i+1)/(visionRight-visionLeft);
@@ -139,19 +142,21 @@
                 y1 = (float)viewHeight*(1-(number1.floatValue-visionBottom)/(visionTop-visionBottom));
                 CGContextAddArc(context, x1, y1, 3, 0, 2*3.141593, 0);
                 CGContextDrawPath(context, kCGPathStroke);
-             //   NSLog(@"x1:%f y1:%f",x1,y1);
+              //  NSLog(@"x1:%f y1:%f",x1,y1);
             }
             else continue;
+           
             if (i+1<[internalDataValueY count]) {
                 number2 = [internalDataValueY objectAtIndex:i+1];
+             //   NSLog(@"%f",number2.floatValue);
                 y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom)/(visionTop-visionBottom));
                 CGContextAddArc(context, x2, y2, 3, 0, 2*3.141593, 0);
                 CGContextDrawPath(context, kCGPathStroke);
-            //    NSLog(@"x2:%f y2:%f",x1,y1);
+           //     NSLog(@"x2:%f y2:%f",x2,y2);
             }
             else continue;
             y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom)/(visionTop-visionBottom));
-            CGContextMoveToPoint(context, x1, y1);
+             CGContextMoveToPoint(context, x1, y1);
             CGContextAddLineToPoint(context, x2, y2);
         }
     }

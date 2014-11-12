@@ -42,10 +42,10 @@ typedef enum {
 
 
 @property (nonatomic, assign) AVCaptureDevicePosition cameraType;
-@property (nonatomic, assign) AVCaptureDevice *captureDevice;
-@property (nonatomic, strong) AVCaptureSession *session;
-@property (nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
-@property (nonatomic, strong) AVCaptureConnection *videoConnection;
+@property (atomic, assign) AVCaptureDevice *captureDevice;
+@property (atomic, strong) AVCaptureSession *session;
+@property (atomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
+@property (atomic, strong) AVCaptureConnection *videoConnection;
 @property (nonatomic, assign) int label;
 
 -(id) initWithDefaltSettings;
