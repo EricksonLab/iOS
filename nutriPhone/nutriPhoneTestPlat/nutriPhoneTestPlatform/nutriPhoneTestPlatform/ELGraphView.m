@@ -19,7 +19,7 @@
 */
 #pragma mark - Initialize methods
 - (id)initDefault{
-    CGRect frame = CGRectMake(10, 260, 300, 200);
+    CGRect frame = CGRectMake(10, 290, 300, 200);
     return [self initWithFrame:frame];
 }
 - (id)initWithFrame:(CGRect)frame

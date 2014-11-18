@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     [_currentImageView setContentMode:UIViewContentModeScaleAspectFit];
     _graphView = [[ELGraphView alloc] initDefault];
-    [_graphView setBackgroundColor:[UIColor colorWithRed:20 green:20 blue:0 alpha:0.1]];
+    [_graphView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0]];
     [self.view addSubview:_graphView];
 }
 

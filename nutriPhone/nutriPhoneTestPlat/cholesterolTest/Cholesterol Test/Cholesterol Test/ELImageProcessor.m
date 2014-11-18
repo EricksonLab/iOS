@@ -50,7 +50,8 @@ float satFromRGB(int r, int g, int b){
     float max = maxValue(r, g, b);
     float min = minValue(r, g, b);
     float dif = (float)(max - min)/2.55;
-    if (l<0.5) return dif/l/2;
+    if (dif <1e-8) return 0;
+    else if (l<0.5) return dif/l/2;
     else return dif/(2-2*l);
 }
 
@@ -175,6 +176,7 @@ float ligFromRGB(int r, int g, int b){
     }
 //    NSLog(@"accSat %f, numOfEffectPoints %d",accSat,numOfEffectivePoints);
 //    NSLog(@"mean %f, stdev %f",mean.floatValue,stadev.floatValue);
+    NSLog(@"accSat %f, numOfEffectvie %d",accSat,numOfEffectivePoints);
     if (numOfEffectivePoints == 0) return [NSNumber numberWithFloat:-1.0];
     float S = accSat/numOfEffectivePoints;
     float finalResult = 0.08*S*S - 4.56*S + 196.84;

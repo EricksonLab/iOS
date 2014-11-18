@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E914CE5A1A1BC6FB002C4B6E /* Fit.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = E914CE591A1BC6FB002C4B6E /* Fit.entitlements */; };
 		E98454991A0A7BCE00D6CCBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E98454981A0A7BCE00D6CCBC /* main.m */; };
 		E984549C1A0A7BCE00D6CCBC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E984549B1A0A7BCE00D6CCBC /* AppDelegate.m */; };
 		E984549F1A0A7BCE00D6CCBC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E984549E1A0A7BCE00D6CCBC /* ViewController.m */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E914CE591A1BC6FB002C4B6E /* Fit.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Fit.entitlements; path = ../../../../../../../../Downloads/FitStoreandRetrieveHealthKitData/Fit/Fit.entitlements; sourceTree = "<group>"; };
 		E98454931A0A7BCE00D6CCBC /* Cholesterol Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cholesterol Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98454971A0A7BCE00D6CCBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E98454981A0A7BCE00D6CCBC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		E98454951A0A7BCE00D6CCBC /* Cholesterol Test */ = {
 			isa = PBXGroup;
 			children = (
+				E914CE591A1BC6FB002C4B6E /* Fit.entitlements */,
 				E98454E01A0A990400D6CCBC /* Icons */,
 				E98454CE1A0A853B00D6CCBC /* ELCameraMonitor.h */,
 				E98454CF1A0A853B00D6CCBC /* ELCameraMonitor.m */,
@@ -274,6 +277,7 @@
 				E98454A21A0A7BCE00D6CCBC /* Main.storyboard in Resources */,
 				E98454F21A0A995D00D6CCBC /* Icon@2x.png in Resources */,
 				E98454F31A0A995D00D6CCBC /* iTunesArtwork.png in Resources */,
+				E914CE5A1A1BC6FB002C4B6E /* Fit.entitlements in Resources */,
 				E98454A71A0A7BCE00D6CCBC /* LaunchScreen.xib in Resources */,
 				E98454EB1A0A995D00D6CCBC /* icon_origin.png in Resources */,
 				E98454EF1A0A995D00D6CCBC /* Icon-Small-50.png in Resources */,
@@ -428,9 +432,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Cholesterol Test/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ed8d7464-d592-4dbe-8921-bc52ae226296";
 			};
 			name = Debug;
 		};
@@ -439,9 +444,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Cholesterol Test/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ed8d7464-d592-4dbe-8921-bc52ae226296";
 			};
 			name = Release;
 		};

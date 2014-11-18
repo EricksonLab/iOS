@@ -16,15 +16,15 @@ typedef enum {
 }ELGraphViewScaleMode;
 
 @interface ELGraphView : UIView {
-    NSArray* internalDataValueY;
-    NSArray* internalDataValueX;
+    
     int viewHeight,viewWidth;
     float visionLeft,visionRight,visionTop,visionBottom;
     ELGraphViewScaleMode scaleMode;
     BOOL scaleAutoX,scaleAutoY;
 }
 
-@property (nonatomic, assign) UInt64 some;
+@property (atomic, strong) NSArray* internalDataValueY;
+@property (atomic, strong) NSArray* internalDataValueX;;
 
 
 

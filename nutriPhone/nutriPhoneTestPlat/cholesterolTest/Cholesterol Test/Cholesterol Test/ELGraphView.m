@@ -11,6 +11,7 @@
 @implementation ELGraphView
 
 
+@synthesize internalDataValueX,internalDataValueY;
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -20,7 +21,7 @@
 */
 #pragma mark - Initialize methods
 - (id)initDefault{
-    CGRect frame = CGRectMake(10, 260, 300, 200);
+    CGRect frame = CGRectMake(10, 290, 300, 200);
     return [self initWithFrame:frame];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -118,7 +119,7 @@
             visionRight = [internalDataValueY count]-1.0;
         }
         if (scaleAutoY) {
-            if (internalDataValueY) NSLog(@"Empty internaldata");
+            if ([internalDataValueY count]==0 || (!internalDataValueY)) NSLog(@"Empty internaldata");
             float tempVisionBottom = [self minValueInArray:internalDataValueY];
             float tempVisionTop = [self maxValueInArray:internalDataValueY];
             if (tempVisionBottom == tempVisionTop) {
@@ -127,7 +128,7 @@
             }
             visionTop = tempVisionTop *1.1 - tempVisionBottom*0.1;
             visionBottom = tempVisionBottom *1.1 - tempVisionTop*0.1;
-        //    NSLog(@"vison tempTop:%f,top:%f,tempBottom:%f,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
+            NSLog(@"vison tempTop:%f,top:%f,tempBottom:%f,bottom:%f",tempVisionTop,visionTop,tempVisionBottom,visionBottom);
         }
         [[UIColor blueColor] setStroke];
         for (int i=(int)visionLeft; i<(int)visionRight; i++) {
@@ -138,21 +139,22 @@
             NSNumber* number2;
             if (i<[internalDataValueY count]) {
                 number1 = [internalDataValueY objectAtIndex:i];
-             //   NSLog(@"number1: %f",number1.floatValue);
+                NSLog(@"number1: %f",number1.floatValue);
                 y1 = (float)viewHeight*(1-(number1.floatValue-visionBottom)/(visionTop-visionBottom));
+                NSLog(@"x1:%f y1:%f",x1,y1);
                 CGContextAddArc(context, x1, y1, 3, 0, 2*3.141593, 0);
                 CGContextDrawPath(context, kCGPathStroke);
-              //  NSLog(@"x1:%f y1:%f",x1,y1);
-            }
+                           }
             else continue;
            
             if (i+1<[internalDataValueY count]) {
                 number2 = [internalDataValueY objectAtIndex:i+1];
-             //   NSLog(@"%f",number2.floatValue);
+                NSLog(@"%f",number2.floatValue);
                 y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom)/(visionTop-visionBottom));
+                NSLog(@"x2:%f y2:%f",x2,y2);
                 CGContextAddArc(context, x2, y2, 3, 0, 2*3.141593, 0);
                 CGContextDrawPath(context, kCGPathStroke);
-           //     NSLog(@"x2:%f y2:%f",x2,y2);
+
             }
             else continue;
             y2 = (float)viewHeight*(1-(number2.floatValue-visionBottom)/(visionTop-visionBottom));

@@ -10,6 +10,7 @@
 #import "ELTestVideoPreview.h"
 #import "ELImageProcessor.h"
 #import "ELGraphView.h"
+#import <HealthKit/HealthKit.h>
 
 
 @interface ViewController : UIViewController {
@@ -20,8 +21,9 @@
 
 @property (strong, nonatomic) ELTestVideoPreview* testVideoPreview;
 @property (strong, atomic) ELCameraMonitor* cameraMonitor;
-@property (strong, nonatomic) ELGraphView* graphView;
+@property (strong, atomic) ELGraphView* graphView;
 @property (strong, nonatomic) IBOutlet UIButton *controlButton;
+@property (nonatomic) HKHealthStore *healthStore;
 
 - (IBAction)start:(UIButton *)sender;
 
