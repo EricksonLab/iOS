@@ -130,13 +130,13 @@
 			name = CameraMonitor;
 			sourceTree = "<group>";
 		};
-		2447351B19E0C29D003E3954 /* MeasureController */ = {
+		2447351B19E0C29D003E3954 /* MeasureTimer */ = {
 			isa = PBXGroup;
 			children = (
 				2447355519E45621003E3954 /* ELMeasureController.h */,
 				2447355619E45621003E3954 /* ELMeasureController.m */,
 			);
-			name = MeasureController;
+			name = MeasureTimer;
 			sourceTree = "<group>";
 		};
 		2447351F19E2E260003E3954 /* TestVideoPreview */ = {
@@ -173,7 +173,7 @@
 				E95B075A1A02DF0900D89D71 /* ImageProcessor */,
 				2446E6761A01A73400B24D5F /* ObjectClasses */,
 				2447351F19E2E260003E3954 /* TestVideoPreview */,
-				2447351B19E0C29D003E3954 /* MeasureController */,
+				2447351B19E0C29D003E3954 /* MeasureTimer */,
 				2447351919E09BED003E3954 /* CameraMonitor */,
 			);
 			name = nutriPhoneLibs;

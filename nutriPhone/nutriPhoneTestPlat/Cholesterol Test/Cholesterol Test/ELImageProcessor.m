@@ -38,7 +38,7 @@ float hueFromRGB(int r, int g, int b){
     int max = maxValue(r, g, b);
     int min = minValue(r, g, b);
     float dif = max - min;
-    if (dif==0) return 240;
+    if (dif==0) return 0;
     else if (max == r && g>=b) return 60.0*(g-b)/dif;
     else if (max == r && g<b) return 60.0*(g-b)/dif+360;
     else if (max == g) return 60*(b-r)/dif+120;
@@ -50,7 +50,8 @@ float satFromRGB(int r, int g, int b){
     float max = maxValue(r, g, b);
     float min = minValue(r, g, b);
     float dif = (float)(max - min)/2.55;
-    if (l<0.5) return dif/l/2;
+    if (dif <1e-8) return 0;
+    else if (l<0.5) return dif/l/2;
     else return dif/(2-2*l);
 }
 
@@ -59,9 +60,8 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSArray*) getPregResultTrend:(ELImage*)sourceImage{
-    //Get pregnancy test result. return a NAArray which contains data to plot curve.
     ELImage* effectiveImage = [ELImageProcessor clipELImage:sourceImage AtTop:51 Left:1 Bottom:94 Rightt:192];
-    NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-50]];
+    NSArray* sumUpData = [NSArray arrayWithArray:[ELImageProcessor sumUpHueAlongAxisYFrom:effectiveImage Bias:-100]];
     NSArray* backgroundData = [NSArray arrayWithArray:[ELImageProcessor morphologyOpen1D:sumUpData StructureElementSize:30]];
     NSArray* dataToPlot = [NSArray arrayWithArray:[ELImageProcessor extractBackgroundData:backgroundData FromSourceData:sumUpData]];
     return dataToPlot;
@@ -71,7 +71,6 @@ float ligFromRGB(int r, int g, int b){
 +(ELImage*)clipELImage:(ELImage*)sourceImage
                  AtTop:(uint)top Left:(uint)left
                  Bottom:(uint)bottom Rightt:(uint)right{
-    //clip original image to a new one, both ELImage
     if (top<=0 || top>sourceImage.height || left<=0 || left>sourceImage.width || bottom<=0 || bottom>sourceImage.height || right<=0 || right>sourceImage.width || left>right || bottom<top) {
         NSLog(@"Error clipping image: input arguments error");
     //    NSLog(@"left:%d right:%d top:%d bottom:%d AND width:%zu height:%zu",left,right,top,bottom,sourceImage.width,sourceImage.height);
@@ -87,6 +86,8 @@ float ligFromRGB(int r, int g, int b){
         }
     return newImage;
 }
+
+
 
 
 #pragma mark - Data process
@@ -112,27 +113,6 @@ float ligFromRGB(int r, int g, int b){
     return sourceData;
 }
 
-+(ELTestResult) getPregResultFromData:(NSArray*)sourceData {
-    // return true/false result of pregnancy test
-    NSRange firstHalf;
-    firstHalf.location = 0;
-    firstHalf.length = [sourceData count]/2;
-    NSRange secondHalf;
-    secondHalf.location = [sourceData count]/2+1;
-    secondHalf.length = [sourceData count] - secondHalf.location;
-    NSArray* firstHalfData = [sourceData subarrayWithRange:firstHalf];
-    NSArray* secondHalfData = [sourceData subarrayWithRange:secondHalf];
-    NSNumber* firstHalfPeakIntegral = [self integralPeakIn:firstHalfData];
-    NSNumber* secondHalfPeakIntergral = [self integralPeakIn:secondHalfData];
-    NSNumber* maxFirstHalf = [NSNumber numberWithFloat:[self maxValueInArray:firstHalfData]];
-    NSNumber* maxSecondHalf = [NSNumber numberWithFloat:[self maxValueInArray:secondHalfData]];
-    if (firstHalfPeakIntegral.floatValue == 0.0 || firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue)
-        return ELTestResultUncertain;
-    else if (firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue * 2 || maxFirstHalf.floatValue<maxSecondHalf.floatValue*1.5)
-        return ELTestResultPositive;
-    else return ELTestResultNegative;
-}
-
 +(NSArray*)hueStatisticFrom:(ELImage*)sourceImage Bias:(int)bias{
     int countOfPixels[360] = {0};
     NSMutableArray* hueStat = [NSMutableArray arrayWithCapacity:360];
@@ -153,8 +133,26 @@ float ligFromRGB(int r, int g, int b){
     return hueStat;
 }
 
++(ELTestResult) getPregResultFromData:(NSArray*)sourceData {
+    NSRange firstHalf;
+    firstHalf.location = 0;
+    firstHalf.length = [sourceData count]/2;
+    NSRange secondHalf;
+    secondHalf.location = [sourceData count]/2+1;
+    secondHalf.length = [sourceData count] - secondHalf.location;
+    NSArray* firstHalfData = [sourceData subarrayWithRange:firstHalf];
+    NSArray* secondHalfData = [sourceData subarrayWithRange:secondHalf];
+    NSNumber* firstHalfPeakIntegral = [self integralPeakIn:firstHalfData];
+    NSNumber* secondHalfPeakIntergral = [self integralPeakIn:secondHalfData];
+    if (firstHalfPeakIntegral.floatValue == 0.0 || firstHalfPeakIntegral.floatValue < secondHalfPeakIntergral.floatValue)
+        return ELTestResultUncertain;
+    else if (firstHalfPeakIntegral.floatValue > secondHalfPeakIntergral.floatValue * 1.5 )
+        return ELTestResultNegative;
+    else return ELTestResultPositive;
+}
+
 +(NSNumber*) getCholResult:(ELImage*)sourceImage{
-    //    if (sourceImage) NSLog(@"has image");
+//    if (sourceImage) NSLog(@"has image");
     NSArray* hueStat = [NSArray arrayWithArray:[self hueStatisticFrom:sourceImage Bias:0]];
     NSRange range;
     range.location =120;
@@ -176,8 +174,8 @@ float ligFromRGB(int r, int g, int b){
             }
         }
     }
-    //    NSLog(@"accSat %f, numOfEffectPoints %d",accSat,numOfEffectivePoints);
-    //    NSLog(@"mean %f, stdev %f",mean.floatValue,stadev.floatValue);
+//    NSLog(@"accSat %f, numOfEffectPoints %d",accSat,numOfEffectivePoints);
+//    NSLog(@"mean %f, stdev %f",mean.floatValue,stadev.floatValue);
     NSLog(@"accSat %f, numOfEffectvie %d",accSat,numOfEffectivePoints);
     if (numOfEffectivePoints == 0) return [NSNumber numberWithFloat:-1.0];
     float S = accSat/numOfEffectivePoints;
@@ -185,10 +183,11 @@ float ligFromRGB(int r, int g, int b){
     return [NSNumber numberWithFloat:finalResult];
 }
 
+
+
 #pragma mark - Mophology 1D
 
 +(NSArray*)morphologyErosion1D:(NSArray*)sourceData StructureElementSize:(int)size{
-    //1 dimention morphology erosion
     if (size<=0 || size>=[sourceData count]) {
         NSLog(@"Structure size error");
         return sourceData;
@@ -210,7 +209,6 @@ float ligFromRGB(int r, int g, int b){
 
 
 +(NSArray*)morphologyDilation1D:(NSArray*)sourceData StructureElementSize:(int)size{
-    //1 dimention morphology dilation
     if (size<=0 || size>=[sourceData count]) {
         NSLog(@"Structure size error");
         return sourceData;
@@ -231,12 +229,10 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSArray*)morphologyOpen1D:(NSArray*)sourceData StructureElementSize:(int)size{
-    //Morphology open
     return [self morphologyDilation1D:[self morphologyErosion1D:sourceData StructureElementSize:size] StructureElementSize:size];
 }
 
 +(NSArray*)morphologyClose1D:(NSArray*)sourceData StructureElementSize:(int)size{
-    //Morphology close
     return [self morphologyErosion1D:[self morphologyDilation1D:sourceData StructureElementSize:size] StructureElementSize:size];
 }
 
@@ -295,9 +291,8 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSArray*) extractBackgroundData:(NSArray*)backgroundData FromSourceData:(NSArray*)sourceData {
-    // extract background data from source data
     if ([backgroundData count]!=[sourceData count]) {
-        NSLog(@"Background %lu/source %lu data not compatible",(unsigned long)[backgroundData count],(unsigned long)[sourceData count]);
+        NSLog(@"Background %d/source %d data not compatible",[backgroundData count],[sourceData count]);
         return sourceData;
     }
     if ([sourceData count]==0){
@@ -317,7 +312,6 @@ float ligFromRGB(int r, int g, int b){
 }
 
 +(NSNumber*) integralPeakIn:(NSArray*)array {
-    //select and intergral peak in a array
     float mean = [[self meanOf:array] floatValue];
     int peakMaxIndex = [self indexOfMaxValueInArray:array];
     if ([[array objectAtIndex:peakMaxIndex] floatValue]<mean+[[self standardDeviationOf:array] floatValue]*2) {

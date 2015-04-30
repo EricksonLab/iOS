@@ -60,7 +60,6 @@
 #pragma mark - Video Control
 
 -(BOOL) buildConnectionWithCameraMonitor:(ELCameraMonitor *)cameraMonitor {
-    //call this method immediately after camera monitor and video preview initiallized
     if (!cameraMonitor) {
         NSLog(@"Camera monitor not defined");
         return NO;

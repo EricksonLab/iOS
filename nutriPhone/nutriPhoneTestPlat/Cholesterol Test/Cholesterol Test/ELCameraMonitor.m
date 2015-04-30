@@ -192,7 +192,7 @@ static ELCameraMonitor* sharedMonitor;
 }
 
 - (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
-//converte sample buffer to UIImage, it will also save an ELImage for image processor later
+//converte sample buffer to UIImage
 {
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     // Lock the base address of the pixel buffer

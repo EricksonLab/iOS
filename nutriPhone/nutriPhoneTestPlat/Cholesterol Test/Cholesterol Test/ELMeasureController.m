@@ -8,9 +8,7 @@
 
 #import "ELMeasureController.h"
 
-@implementation ELMeasureTimer
-
-//Currently all measurement timer funtion are in ViewController, but we can play with delegate when doing time related test
+@implementation ELMeasureController
 
 #pragma mark - Initialization
 
